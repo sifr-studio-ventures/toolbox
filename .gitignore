@@ -1,0 +1,7 @@
+node_modules
+dist
+.wrangler
+.dev.vars
+*.log
+agent-tools
+worker-configuration.d.ts
