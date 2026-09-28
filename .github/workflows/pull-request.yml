@@ -24,7 +24,7 @@ jobs:
         id: preview
         run: |
           set -o pipefail
-          output="$(npx wrangler preview --name \"pr-${{ github.event.pull_request.number }}\" --json)"
+          output="$(npx wrangler preview --name "pr-${{ github.event.pull_request.number }}" --json)"
           printf '%s\n' "$output"
           preview_url="$(printf '%s' "$output" | jq -er '.preview.urls[0]')"
           echo "preview_url=$preview_url" >> "$GITHUB_OUTPUT"

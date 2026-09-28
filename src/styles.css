@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "sifr";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+  --color-base-100: oklch(98.2% 0.008 85);
+  --color-base-200: oklch(95.4% 0.014 82);
+  --color-base-300: oklch(90.5% 0.02 78);
+  --color-base-content: oklch(27% 0.02 50);
+  --color-primary: oklch(58% 0.14 48);
+  --color-primary-content: oklch(98% 0.01 90);
+  --color-secondary: oklch(40% 0.04 165);
+  --color-secondary-content: oklch(97% 0.01 160);
+  --color-accent: oklch(72% 0.12 85);
+  --color-accent-content: oklch(28% 0.04 70);
+  --color-neutral: oklch(24% 0.02 50);
+  --color-neutral-content: oklch(96% 0.01 85);
+  --color-info: oklch(62% 0.08 230);
+  --color-info-content: oklch(98% 0.01 230);
+  --color-success: oklch(58% 0.1 155);
+  --color-success-content: oklch(98% 0.01 155);
+  --color-warning: oklch(78% 0.14 85);
+  --color-warning-content: oklch(28% 0.05 70);
+  --color-error: oklch(58% 0.16 30);
+  --color-error-content: oklch(98% 0.01 30);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+}
