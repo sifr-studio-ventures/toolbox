@@ -1,8 +1,11 @@
 import { Hono } from "hono";
+import { canonicalHost } from "./canonical";
 import css from "./styles.css?inline";
 import { homePage, layout, stackFragment } from "./page";
 
 const app = new Hono<{ Bindings: Env }>();
+
+app.use("*", canonicalHost);
 
 app.get("/", (c) => {
   return c.html(layout(css, homePage()));
