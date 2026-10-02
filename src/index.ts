@@ -27,7 +27,7 @@ app.use("*", async (c, next) => {
     return c.html(
       layout(
         css,
-        `<main class="mx-auto max-w-xl px-4 py-16">
+        `<main class="mx-auto max-w-xl page-shell py-16">
           <div class="card bg-base-100 shadow-sm">
             <div class="card-body">
               <h1 class="card-title text-2xl">The database is not ready</h1>
@@ -73,16 +73,22 @@ app.get("/stack", (c) => {
 
 registerFactory(app, css, layout);
 
-app.notFound((c) => {
+app.notFound(async (c) => {
+  const assets = c.env.ASSETS;
+  if (assets) {
+    const asset = await assets.fetch(c.req.raw);
+    if (asset.status !== 404) return asset;
+  }
+
   return c.html(
     layout(
       css,
-      `<main class="mx-auto max-w-xl px-4 py-16">
+      `<main class="mx-auto max-w-xl page-shell py-16">
         <div class="card bg-base-100 shadow-sm">
           <div class="card-body">
             <h1 class="card-title text-2xl">That path is not on the bench</h1>
             <p>Try the home page, or open Value Factory.</p>
-            <div class="card-actions">
+            <div class="card-actions gap-3">
               <a class="btn btn-primary" href="/">Back home</a>
               <a class="btn btn-ghost" href="/factory">Value Factory</a>
             </div>
