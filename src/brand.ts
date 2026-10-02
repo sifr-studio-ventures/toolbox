@@ -58,7 +58,7 @@ export function brandLockup(options?: {
         ? "brand-mark text-xl tracking-tight md:text-2xl"
         : "brand-mark text-xl tracking-tight";
   const inner = `<img class="${markClass}" src="/open-toolbox-mark.png" width="280" height="185" alt="" decoding="async" />
-    <span class="${textClass}">Toolbox</span>`;
+    <span class="${textClass}">Open Toolbox</span>`;
   if (options?.href === null) {
     return `<div class="brand-lockup ${className}">${inner}</div>`;
   }

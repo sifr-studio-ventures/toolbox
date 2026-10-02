@@ -67,7 +67,7 @@ export function registerFactory(app: Hono<AppContext>, css: string, layout: Layo
     if (c.get("user")) return c.redirect(safeNext(c.req.query("next")));
     return c.html(
       layout(css, shell(null, signInView(safeNext(c.req.query("next")), "")), {
-        title: "Sign in \u00b7 Value Factory",
+        title: "Sign in · Value Factory",
         description: "Sign in to Value Factory with an email link. No password.",
       }),
     );
@@ -97,7 +97,7 @@ export function registerFactory(app: Hono<AppContext>, css: string, layout: Layo
             c.get("user"),
             `<section class="mx-auto max-w-lg"><div class="alert alert-error"><span>That sign-in link is invalid or expired. Request a new one.</span></div><a class="btn btn-primary mt-4" href="/signin">Request a new link</a></section>`,
           ),
-          { title: "Link expired \u00b7 Value Factory" },
+          { title: "Link expired · Value Factory" },
         ),
         400,
       );
@@ -119,7 +119,7 @@ export function registerFactory(app: Hono<AppContext>, css: string, layout: Layo
     const rows = await listWorkspaceBoards(c.env.DB, user.id);
     return c.html(
       layout(css, shell(user, factoryHome(rows, null)), {
-        title: "Value Factory \u00b7 Toolbox",
+        title: "Value Factory · Open Toolbox",
         description: "Boards for taking work from research to done.",
       }),
     );
@@ -367,7 +367,7 @@ async function renderBoard(
         c.get("user"),
         boardPage({ board: view, mode, origin, canEdit, webhooks, deliveries, webhookError: null }),
       ),
-      { title: `${board.name} \u00b7 Value Factory`, description: `${board.name} on the Value Factory.` },
+      { title: `${board.name} · Value Factory`, description: `${board.name} on the Value Factory.` },
     ),
   );
 }
@@ -452,7 +452,7 @@ async function factoryError(
 ): Promise<Response> {
   const rows = await listWorkspaceBoards(c.env.DB, user.id);
   return c.html(
-    layout(css, shell(user, factoryHome(rows, error)), { title: "Value Factory \u00b7 Toolbox" }),
+    layout(css, shell(user, factoryHome(rows, error)), { title: "Value Factory · Open Toolbox" }),
     400,
   );
 }
@@ -465,7 +465,7 @@ function missing(c: Context<AppContext>, css: string, layout: Layout, user: User
         user,
         `<section class="mx-auto max-w-lg"><h1 class="text-2xl font-extrabold">That board is not here</h1><p class="mt-3">The link may be old, or the board was removed.</p><a class="btn btn-primary mt-4" href="/factory">Back to Value Factory</a></section>`,
       ),
-      { title: "Board not found \u00b7 Toolbox" },
+      { title: "Board not found · Open Toolbox" },
     ),
     404,
   );

@@ -6,7 +6,7 @@ export function layout(
   body: string,
   options?: { title?: string; description?: string },
 ): string {
-  const title = options?.title ?? "Toolbox · Open Toolbox";
+  const title = options?.title ?? "Open Toolbox";
   const description =
     options?.description ??
     "Open Toolbox on Cloudflare Workers. HTML from Hono, DaisyUI on Tailwind, and the Value Factory board.";
@@ -66,7 +66,7 @@ export function homePage(): string {
           <p class="text-sm font-medium">Edge bench</p>
           <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">A Worker that answers in HTML.</h1>
           <p class="max-w-2xl text-base font-normal leading-relaxed text-base-content/75">
-            Toolbox proves a site can live on Cloudflare Workers without a client framework.
+            Open Toolbox proves a site can live on Cloudflare Workers without a client framework.
             Hono writes the page. Tailwind and DaisyUI dress it. HTMX swaps one piece when you ask.
           </p>
           <div class="flex flex-wrap gap-3">
@@ -108,7 +108,7 @@ export function homePage(): string {
       </main>
 
       <footer class="border-t border-base-300 px-5 py-8 text-sm font-normal text-base-content/60 md:px-10">
-        Toolbox · HTML on Cloudflare Workers · <a class="link link-hover" href="https://opentoolbox.io">opentoolbox.io</a>
+        Open Toolbox · HTML on Cloudflare Workers · <a class="link link-hover" href="https://opentoolbox.io">opentoolbox.io</a>
       </footer>
     </div>
     <div class="drawer-side z-20">

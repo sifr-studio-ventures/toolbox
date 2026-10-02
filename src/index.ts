@@ -40,7 +40,7 @@ app.use("*", async (c, next) => {
             </div>
           </div>
         </main>`,
-        { title: "Database not ready · Toolbox" },
+        { title: "Database not ready · Open Toolbox" },
       ),
       500,
     );
@@ -57,9 +57,9 @@ app.get("/", (c) => {
 app.get("/design-system", (c) => {
   return c.html(
     layout(css, designSystemPage(), {
-      title: "Design system · Toolbox",
+      title: "Design system · Open Toolbox",
       description:
-        "Coolors palettes, Active #023047, type, spacing, radii, and DaisyUI components Toolbox uses on the bench and Value Factory.",
+        "Coolors palettes, Active #023047, type, spacing, radii, and DaisyUI components Open Toolbox uses on the bench and Value Factory.",
     }),
   );
 });

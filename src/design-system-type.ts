@@ -11,7 +11,7 @@ export function typeSection(): string {
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p class="text-sm font-medium">Near-navy text</p>
-            <p class="mt-2 text-sm text-base-content/70">Brand wordmark, headings, and body. Sampled from the Toolbox wordmark in the logo.</p>
+            <p class="mt-2 text-sm text-base-content/70">Brand wordmark, headings, and body. Sampled from the Open Toolbox wordmark in the logo.</p>
           </div>
           <div class="flex items-center gap-4">
             <span class="inline-block size-12 rounded-box border border-base-300" style="background:#021028"></span>
@@ -28,7 +28,7 @@ export function typeSection(): string {
         <p class="text-3xl font-extrabold tracking-tight md:text-4xl">Page title · ExtraBold 800</p>
         <p class="text-xl font-bold">Section title · Bold 700</p>
         <p class="text-base font-normal leading-relaxed text-base-content/75">
-          Body copy · Regular 400. Soft opacity for supporting sentences. One near-navy for Open and Toolbox — no blue/black split.
+          Body copy · Regular 400. Soft opacity for supporting sentences. One near-navy for the full Open Toolbox wordmark — no blue/black split.
         </p>
         <p class="text-sm font-medium text-base-content/60">Supporting note · Medium 500</p>
         <p class="text-xs font-normal text-base-content/50">Meta · Regular 400</p>

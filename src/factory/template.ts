@@ -132,7 +132,7 @@ export const SEEDED_CARDS: SeedCard[] = [
     title: "Homepage that explains the bench",
     owner: "",
     value: 6,
-    notes: "A new person should see what Toolbox is, and how to open a board, on a phone and on a desk.",
+    notes: "A new person should see what Open Toolbox is, and how to open a board, on a phone and on a desk.",
     links: [{ label: "Home", url: "https://opentoolbox.io" }],
     done: [],
   },

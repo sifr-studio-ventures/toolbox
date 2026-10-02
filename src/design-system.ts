@@ -54,7 +54,7 @@ export function designSystemPage(): string {
       </main>
 
       <footer class="border-t border-base-300 px-5 py-8 text-sm text-base-content/60 md:px-10">
-        Toolbox · design tokens from <code class="text-xs">src/styles.css</code>
+        Open Toolbox · design tokens from <code class="text-xs">src/styles.css</code>
       </footer>
     </div>
     <div class="drawer-side z-20">

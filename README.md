@@ -1,6 +1,6 @@
-# toolbox
+# Open Toolbox
 
-Toolbox is the Open Toolbox edge bench. A Hono app on Cloudflare Workers returns HTML. Tailwind and DaisyUI style the home page with the Coolors `toolbox` theme, Poppins typography, near-navy text `--text-navy` (`#021028`), Active `#023047`, the soft 3D PNG logo mark, and roomier spacing. One button uses HTMX to swap in a fragment from `GET /stack`. The public design system lives at `/design-system`.
+Open Toolbox is the edge bench. A Hono app on Cloudflare Workers returns HTML. Tailwind and DaisyUI style the home page with the Coolors `toolbox` theme, Poppins typography, near-navy text `--text-navy` (`#021028`), Active `#023047`, the soft 3D PNG logo mark, and roomier spacing. One button uses HTMX to swap in a fragment from `GET /stack`. The public design system lives at `/design-system`.
 
 ## Run locally
 
@@ -50,3 +50,14 @@ Pushes to `main` run `.github/workflows/deploy.yml`, which typechecks, builds, a
 Both workflows need the repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. The token needs permission to edit this Worker.
 
 When the GitHub repository is connected to Workers Builds, production builds on `main` run `npm run build` and then `npx wrangler deploy`. Other branches run `npx wrangler preview`. Workers Builds comments the preview URL on the pull request. The Worker applies `migrations/` on the first request of that deploy, so the preview database does not depend on the dashboard deploy command also running `wrangler d1 migrations apply`.
+
+## Naming
+
+| Layer | Value | Notes |
+| --- | --- | --- |
+| Product / brand | Open Toolbox | User-facing copy, emails, page titles |
+| GitHub repo slug | `toolbox` | Do not rename |
+| Cloudflare Worker script id | `toolbox` | Do not rename — Workers Builds and custom domains |
+| npm package `name` | `open-toolbox` | Safe; D1 / Wrangler scripts still use database id `toolbox` |
+| DaisyUI theme | `toolbox` | CSS theme key |
+| D1 databases | `toolbox` / `toolbox-preview` | Bound as `DB` |
