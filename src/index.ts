@@ -3,6 +3,7 @@ import { userFromCookie } from "./auth";
 import { canonicalHost } from "./canonical";
 import { registerFactory } from "./factory/routes";
 import { ensureReady } from "./migrate";
+import { designSystemPage } from "./design-system";
 import { homePage, layout, stackFragment } from "./page";
 import css from "./styles.css?inline";
 import type { AppContext } from "./types";
@@ -46,6 +47,16 @@ app.use("*", async (c, next) => {
 
 app.get("/", (c) => {
   return c.html(layout(css, homePage()));
+});
+
+app.get("/design-system", (c) => {
+  return c.html(
+    layout(css, designSystemPage(), {
+      title: "Design system · Toolbox",
+      description:
+        "Colors, type, spacing, radii, and DaisyUI components Toolbox already uses on the bench and Value Factory.",
+    }),
+  );
 });
 
 app.get("/stack", (c) => {

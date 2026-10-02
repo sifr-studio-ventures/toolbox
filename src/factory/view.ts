@@ -29,6 +29,7 @@ export function shell(user: FactoryUser, main: string): string {
         <nav class="navbar-center hidden gap-6 text-sm lg:flex">
           <a href="/factory" class="link link-hover">Value Factory</a>
           <a href="/b/building-opentoolbox" class="link link-hover">Public board</a>
+          <a href="/design-system" class="link link-hover">Design system</a>
         </nav>
         <div class="navbar-end">${account}</div>
       </header>
@@ -42,6 +43,7 @@ export function shell(user: FactoryUser, main: string): string {
       <ul class="menu min-h-full w-72 bg-base-100 p-4 text-base">
         <li><a href="/factory">Value Factory</a></li>
         <li><a href="/b/building-opentoolbox">Building opentoolbox</a></li>
+        <li><a href="/design-system">Design system</a></li>
         <li><a href="/">Bench</a></li>
       </ul>
     </div>

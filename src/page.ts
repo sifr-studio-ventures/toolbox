@@ -44,6 +44,7 @@ export function homePage(): string {
         <nav class="navbar-center hidden gap-6 text-sm lg:flex">
           <a href="#bench" class="link link-hover">Bench</a>
           <a href="/factory" class="link link-hover">Value Factory</a>
+          <a href="/design-system" class="link link-hover">Design system</a>
           <a href="#swap" class="link link-hover">Swap</a>
         </nav>
         <div class="navbar-end gap-2">
@@ -117,6 +118,7 @@ export function homePage(): string {
         <li><a href="#bench">Bench</a></li>
         <li><a href="/factory">Value Factory</a></li>
         <li><a href="/b/building-opentoolbox">Building opentoolbox</a></li>
+        <li><a href="/design-system">Design system</a></li>
         <li><a href="#swap">Swap</a></li>
       </ul>
     </div>
