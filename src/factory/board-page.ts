@@ -8,7 +8,7 @@ export function cardForm(boardId: string, card: CardView, error: string | null):
     .map((link) => (link.label === link.url ? link.url : `${link.label} | ${link.url}`))
     .join("\n");
   return `<form class="flex flex-col gap-3" hx-post="/boards/${escapeHtml(boardId)}/cards/${escapeHtml(card.id)}" hx-target="#board-columns" hx-swap="outerHTML" hx-indicator="#board-pending">
-    <h3 class="text-lg font-semibold">Edit card</h3>
+    <h3 class="text-lg font-bold">Edit card</h3>
     ${error ? `<div class="alert alert-error"><span>${escapeHtml(error)}</span></div>` : ""}
     <label class="flex flex-col gap-1 text-sm">
       <span class="font-medium">Title</span>
@@ -76,7 +76,7 @@ export function boardPage(options: {
   return `<div class="flex flex-wrap items-end justify-between gap-3">
       <div>
         <p class="text-sm text-base-content/70"><a class="link" href="/factory">${escapeHtml(board.workspace_name)}</a></p>
-        <h1 class="text-3xl font-semibold">${escapeHtml(board.name)}</h1>
+        <h1 class="text-3xl font-extrabold">${escapeHtml(board.name)}</h1>
       </div>
       <div class="flex items-center gap-2">
         <span id="board-pending" class="htmx-indicator loading loading-spinner loading-sm"></span>
