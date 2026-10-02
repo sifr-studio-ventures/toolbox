@@ -1,21 +1,23 @@
-function escapeHtml(value: string): string {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
+import { escapeHtml } from "./html";
 
-export function layout(css: string, body: string): string {
+export function layout(
+  css: string,
+  body: string,
+  options?: { title?: string; description?: string },
+): string {
+  const title = options?.title ?? "Toolbox · Sifr Studio";
+  const description =
+    options?.description ??
+    "Sifr Studio's edge bench. HTML from a Hono Worker, DaisyUI on Tailwind, and the Value Factory board.";
   return `<!doctype html>
 <html lang="en" data-theme="sifr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Toolbox · Sifr Studio</title>
+    <title>${escapeHtml(title)}</title>
     <meta
       name="description"
-      content="Sifr Studio's edge bench. HTML from a Hono Worker, DaisyUI on Tailwind, and one HTMX swap."
+      content="${escapeHtml(description)}"
     />
     <style>${css}</style>
     <script src="https://unpkg.com/htmx.org@2.0.7"></script>
@@ -41,11 +43,11 @@ export function homePage(): string {
         </div>
         <nav class="navbar-center hidden gap-6 text-sm lg:flex">
           <a href="#bench" class="link link-hover">Bench</a>
-          <a href="#stack" class="link link-hover">Stack</a>
+          <a href="/factory" class="link link-hover">Value Factory</a>
           <a href="#swap" class="link link-hover">Swap</a>
         </nav>
-        <div class="navbar-end">
-          <span class="badge badge-outline">Sifr Studio</span>
+        <div class="navbar-end gap-2">
+          <a class="btn btn-primary btn-sm" href="/signin">Sign in</a>
         </div>
       </header>
 
@@ -61,7 +63,10 @@ export function homePage(): string {
                 HTMX swaps one piece when you ask.
               </p>
             </div>
-            <a href="#swap" class="btn btn-primary">Try the swap</a>
+            <div class="flex flex-wrap gap-2">
+              <a href="/factory" class="btn btn-primary">Open Value Factory</a>
+              <a href="#swap" class="btn btn-outline">Try the swap</a>
+            </div>
           </div>
         </section>
 
@@ -86,6 +91,19 @@ export function homePage(): string {
           </article>
         </section>
 
+        <section class="card bg-base-100 shadow-sm">
+          <div class="card-body gap-3 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 class="card-title">Value Factory</h2>
+              <p>A kanban for taking an idea from research to done. The first board is public. Sign in when you want your own.</p>
+            </div>
+            <div class="card-actions">
+              <a class="btn btn-primary" href="/b/building-opentoolbox">Building opentoolbox</a>
+              <a class="btn btn-ghost" href="/signin">Sign in</a>
+            </div>
+          </div>
+        </section>
+
         ${promptCard()}
       </main>
 
@@ -97,7 +115,8 @@ export function homePage(): string {
       <label for="nav-drawer" class="drawer-overlay" aria-label="Close menu"></label>
       <ul class="menu min-h-full w-64 bg-base-100 p-4 text-base">
         <li><a href="#bench">Bench</a></li>
-        <li><a href="#stack">Stack</a></li>
+        <li><a href="/factory">Value Factory</a></li>
+        <li><a href="/b/building-opentoolbox">Building opentoolbox</a></li>
         <li><a href="#swap">Swap</a></li>
       </ul>
     </div>
