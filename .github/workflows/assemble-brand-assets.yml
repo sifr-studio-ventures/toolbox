@@ -16,7 +16,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           python3 - <<'PY'
-          import base64, hashlib, json, os, pathlib, urllib.request, urllib.error
+          import base64, hashlib, json, os, pathlib, urllib.request, urllib.error, re
           token = os.environ["GH_TOKEN"]
           repo = os.environ["GITHUB_REPOSITORY"]
           branch = "cursor/logo-favicon-spacing-c7fb"
@@ -43,18 +43,21 @@ jobs:
                   out = json.load(r)
               print(path, out["commit"]["sha"], len(data), hashlib.sha1(data).hexdigest())
 
+          def clean(text):
+              return re.sub(r"\s+", "", text)
+
           root = pathlib.Path("_agent")
-          apple_parts = sorted(root.glob("ap.*"), key=lambda p: int(p.name.split(".")[1]))
+          apple_parts = sorted([p for p in root.glob("ap.*") if p.name.split(".")[1].isdigit()], key=lambda p: int(p.name.split(".")[1]))
           if len(apple_parts) >= 18:
-              apple = "".join(p.read_text().strip() for p in apple_parts)
+              apple = "".join(clean(p.read_text()) for p in apple_parts)
               put("brand-png/apple-touch-icon.png.b64", apple.encode(), "Add apple-touch icon b64")
-          m1_parts = sorted(root.glob("m1.*"), key=lambda p: int(p.name.split(".")[1]))
+          m1_parts = sorted([p for p in root.glob("m1.*") if p.name.split(".")[1].isdigit()], key=lambda p: int(p.name.split(".")[1]))
           if len(m1_parts) >= 23:
-              m1 = "".join(p.read_text().strip() for p in m1_parts)
+              m1 = "".join(clean(p.read_text()) for p in m1_parts)
               put("brand-png/open-toolbox-mark.png.b64.part1", m1.encode(), "Add logo mark b64 part1")
-          m2_parts = sorted(root.glob("m2.*"), key=lambda p: int(p.name.split(".")[1]))
+          m2_parts = sorted([p for p in root.glob("m2.*") if p.name.split(".")[1].isdigit()], key=lambda p: int(p.name.split(".")[1]))
           if len(m2_parts) >= 23:
-              m2 = "".join(p.read_text().strip() for p in m2_parts)
+              m2 = "".join(clean(p.read_text()) for p in m2_parts)
               put("brand-png/open-toolbox-mark.png.b64.part2", m2.encode(), "Add logo mark b64 part2")
           print("apple_parts", len(apple_parts), "m1", len(m1_parts), "m2", len(m2_parts))
           PY
