@@ -1,0 +1,11 @@
+{
+  "account_id": "60b48c04913c8739d7c551774048b3b9",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "toolbox-preview",
+      "database_id": "75a5b54d-7100-4d96-9e55-dc69facf917d",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

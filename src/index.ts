@@ -1,11 +1,48 @@
 import { Hono } from "hono";
+import { userFromCookie } from "./auth";
 import { canonicalHost } from "./canonical";
-import css from "./styles.css?inline";
+import { registerFactory } from "./factory/routes";
+import { ensureReady } from "./migrate";
 import { homePage, layout, stackFragment } from "./page";
+import css from "./styles.css?inline";
+import type { AppContext } from "./types";
 
-const app = new Hono<{ Bindings: Env }>();
+const app = new Hono<AppContext>();
 
 app.use("*", canonicalHost);
+
+app.use("*", async (c, next) => {
+  if (!["GET", "HEAD", "OPTIONS"].includes(c.req.method)) {
+    const origin = c.req.header("origin");
+    if (origin && origin !== new URL(c.req.url).origin) {
+      return c.text("Cross-origin request blocked", 403);
+    }
+  }
+
+  try {
+    await ensureReady(c.env.DB);
+  } catch (error) {
+    console.error("database setup failed", error instanceof Error ? error.message : "setup failed");
+    return c.html(
+      layout(
+        css,
+        `<main class="mx-auto max-w-xl px-4 py-16">
+          <div class="card bg-base-100 shadow-sm">
+            <div class="card-body">
+              <h1 class="card-title text-2xl">The database is not ready</h1>
+              <p>Reload in a moment. If this keeps happening, the D1 migration did not apply.</p>
+            </div>
+          </div>
+        </main>`,
+        { title: "Database not ready · Toolbox" },
+      ),
+      500,
+    );
+  }
+
+  c.set("user", await userFromCookie(c.env.DB, c.req.header("cookie") ?? ""));
+  await next();
+});
 
 app.get("/", (c) => {
   return c.html(layout(css, homePage()));
@@ -23,6 +60,8 @@ app.get("/stack", (c) => {
   return c.html(fragment);
 });
 
+registerFactory(app, css, layout);
+
 app.notFound((c) => {
   return c.html(
     layout(
@@ -31,9 +70,10 @@ app.notFound((c) => {
         <div class="card bg-base-100 shadow-sm">
           <div class="card-body">
             <h1 class="card-title text-2xl">That path is not on the bench</h1>
-            <p>Toolbox only serves the home page and the <code>/stack</code> fragment.</p>
+            <p>Try the home page, or open Value Factory.</p>
             <div class="card-actions">
               <a class="btn btn-primary" href="/">Back home</a>
+              <a class="btn btn-ghost" href="/factory">Value Factory</a>
             </div>
           </div>
         </div>
