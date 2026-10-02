@@ -7,7 +7,10 @@
     "dev": "vite dev",
     "build": "vite build",
     "typecheck": "wrangler types && tsc --noEmit",
-    "deploy": "npm run build && wrangler deploy",
+    "deploy": "npm run build && wrangler d1 migrations apply toolbox --remote && wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply toolbox --local",
+    "db:migrate": "wrangler d1 migrations apply toolbox --remote",
+    "db:migrate:preview": "wrangler d1 migrations apply toolbox-preview --remote --config wrangler.preview-migrations.jsonc",
     "preview": "wrangler preview",
     "cf-typegen": "wrangler types"
   },
