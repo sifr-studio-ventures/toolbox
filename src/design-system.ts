@@ -9,7 +9,7 @@ export function designSystemPage(): string {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           </label>
-          <a class="text-lg font-semibold tracking-tight" href="/">Toolbox</a>
+          <a class="brand-mark text-lg tracking-tight" href="/">Toolbox</a>
         </div>
         <nav class="navbar-center hidden gap-5 text-sm lg:flex">
           <a href="#color" class="link link-hover text-base-content">Color</a>
@@ -26,12 +26,14 @@ export function designSystemPage(): string {
 
       <main class="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-14 px-4 py-12 md:px-8">
         <header class="flex flex-col gap-3 border-b border-base-300 pb-10">
-          <p class="text-sm font-medium text-primary">Design system</p>
-          <h1 class="text-3xl font-semibold tracking-tight md:text-4xl">Tokens and components</h1>
+          <p class="text-sm font-medium">Design system</p>
+          <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">Tokens and components</h1>
           <p class="max-w-2xl text-base leading-relaxed text-base-content/75">
-            Coolors dark/work and blue/calm palettes, Active
-            <code class="rounded bg-base-200 px-1.5 py-0.5 text-sm">#023047</code>,
-            and the DaisyUI theme <code class="rounded bg-base-200 px-1.5 py-0.5 text-sm">toolbox</code>.
+            Coolors dark/work and blue/calm palettes, near-navy text
+            <code class="rounded bg-base-200 px-1.5 py-0.5 text-sm">--text-navy</code>
+            <code class="rounded bg-base-200 px-1.5 py-0.5 text-sm">#021028</code>,
+            Active <code class="rounded bg-base-200 px-1.5 py-0.5 text-sm">#023047</code>,
+            Poppins, and the DaisyUI theme <code class="rounded bg-base-200 px-1.5 py-0.5 text-sm">toolbox</code>.
             Same classes the Worker returns on home and Value Factory.
           </p>
         </header>
@@ -64,7 +66,7 @@ export function designSystemPage(): string {
 function section(id: string, title: string, lead: string, body: string): string {
   return `<section id="${id}" class="flex flex-col gap-5">
     <div class="flex flex-col gap-2">
-      <h2 class="text-xl font-semibold tracking-tight">${title}</h2>
+      <h2 class="text-xl font-bold tracking-tight">${title}</h2>
       <p class="max-w-2xl text-sm leading-relaxed text-base-content/70">${lead}</p>
     </div>
     ${body}
@@ -104,38 +106,55 @@ function colorSection(): string {
   ] as const;
 
   const body = `<div class="flex flex-col gap-8">
-    <div class="rounded border border-base-300 bg-base-100 p-4">
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p class="text-sm font-medium">Active / primary</p>
-          <p class="mt-1 text-sm text-base-content/70">CTAs, selected states, and focus rings.</p>
-        </div>
-        <div class="flex items-center gap-3">
-          <span class="inline-block size-10 rounded border border-base-300" style="background:#023047"></span>
+    <div class="grid gap-3 sm:grid-cols-2">
+      <div class="rounded border border-base-300 bg-base-100 p-4">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p class="font-mono text-sm">#023047</p>
-            <p class="font-mono text-xs text-base-content/50">--active · primary</p>
+            <p class="text-sm font-medium">Near-navy text</p>
+            <p class="mt-1 text-sm text-base-content/70">Brand, headings, and body.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="inline-block size-10 rounded border border-base-300" style="background:#021028"></span>
+            <div>
+              <p class="font-mono text-sm">#021028</p>
+              <p class="font-mono text-xs text-base-content/50">--text-navy</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="rounded border border-base-300 bg-base-100 p-4">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm font-medium">Active / primary</p>
+            <p class="mt-1 text-sm text-base-content/70">CTAs, selected states, and focus rings.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="inline-block size-10 rounded border border-base-300" style="background:#023047"></span>
+            <div>
+              <p class="font-mono text-sm">#023047</p>
+              <p class="font-mono text-xs text-base-content/50">--active · primary</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="flex flex-col gap-3">
-      <h3 class="text-sm font-semibold uppercase tracking-wide text-base-content/60">Dark / work</h3>
+      <h3 class="text-sm font-bold uppercase tracking-wide text-base-content/60">Dark / work</h3>
       <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
         ${darkWork.map(([n, h, v]) => swatch(n, h, v)).join("")}
       </div>
     </div>
 
     <div class="flex flex-col gap-3">
-      <h3 class="text-sm font-semibold uppercase tracking-wide text-base-content/60">Blue / calm</h3>
+      <h3 class="text-sm font-bold uppercase tracking-wide text-base-content/60">Blue / calm</h3>
       <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
         ${blueCalm.map(([n, h, v]) => swatch(n, h, v)).join("")}
       </div>
     </div>
 
     <div class="flex flex-col gap-3">
-      <h3 class="text-sm font-semibold uppercase tracking-wide text-base-content/60">DaisyUI roles</h3>
+      <h3 class="text-sm font-bold uppercase tracking-wide text-base-content/60">DaisyUI roles</h3>
       <div class="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
         <div class="rounded bg-primary px-3 py-3 text-sm text-primary-content">primary</div>
         <div class="rounded bg-secondary px-3 py-3 text-sm text-secondary-content">secondary</div>
@@ -152,7 +171,7 @@ function colorSection(): string {
   return section(
     "color",
     "Color",
-    "Two Coolors palettes plus Active. Accent yellow is spare. Blue ramp covers info, links, and calm surfaces.",
+    "Two Coolors palettes plus Active. UI text is --text-navy (#021028). Accent yellow is spare. Blue ramp covers info, links, and calm surfaces.",
     body,
   );
 }
@@ -161,16 +180,38 @@ function typeSection(): string {
   return section(
     "type",
     "Type",
-    "Simple scale. Semibold titles, relaxed body, quiet labels.",
-    `<div class="flex flex-col gap-3 rounded border border-base-300 p-5">
-      <p class="text-sm font-medium text-primary">Section label</p>
-      <p class="text-3xl font-semibold tracking-tight md:text-4xl">Page title</p>
-      <p class="text-xl font-semibold">Section title</p>
-      <p class="text-base leading-relaxed text-base-content/75">
-        Body copy uses text-base and a soft content opacity for supporting sentences.
-      </p>
-      <p class="text-sm text-base-content/60">Supporting note · text-sm</p>
-      <p class="text-xs text-base-content/50">Meta · text-xs</p>
+    "Poppins sitewide. ExtraBold 800 for brand and big titles, Bold 700 for section titles and buttons, Regular/Medium 400/500 for body. All UI text uses --text-navy.",
+    `<div class="flex flex-col gap-5">
+      <div class="rounded border border-base-300 bg-base-100 p-4">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm font-medium">Near-navy text</p>
+            <p class="mt-1 text-sm text-base-content/70">Brand wordmark, headings, and body. Sampled from the Toolbox wordmark in the logo.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="inline-block size-10 rounded border border-base-300" style="background:#021028"></span>
+            <div>
+              <p class="font-mono text-sm">#021028</p>
+              <p class="font-mono text-xs text-base-content/50">--text-navy · base-content</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-3 rounded border border-base-300 p-5">
+        <p class="brand-mark text-lg tracking-tight">Toolbox</p>
+        <p class="text-sm font-medium">Section label · Medium 500</p>
+        <p class="text-3xl font-extrabold tracking-tight md:text-4xl">Page title · ExtraBold 800</p>
+        <p class="text-xl font-bold">Section title · Bold 700</p>
+        <p class="text-base font-normal leading-relaxed text-base-content/75">
+          Body copy · Regular 400. Soft opacity for supporting sentences. One near-navy for Open and Toolbox — no blue/black split.
+        </p>
+        <p class="text-sm font-medium text-base-content/60">Supporting note · Medium 500</p>
+        <p class="text-xs font-normal text-base-content/50">Meta · Regular 400</p>
+        <div class="flex flex-wrap gap-2 pt-2">
+          <button class="btn btn-primary" type="button">Button · Bold 700</button>
+          <button class="btn btn-outline" type="button">Outline</button>
+        </div>
+      </div>
     </div>`,
   );
 }
@@ -335,7 +376,7 @@ function componentsSection(): string {
         </button>
         <dialog id="design-card-dialog" class="modal">
           <div class="modal-box w-11/12 max-w-2xl">
-            <h3 class="text-lg font-semibold">Edit card</h3>
+            <h3 class="text-lg font-bold">Edit card</h3>
             <p class="mt-2 text-sm text-base-content/70">Same shell Value Factory uses when you press Edit.</p>
             <label class="mt-4 flex flex-col gap-1 text-sm">
               Title
@@ -397,7 +438,7 @@ function componentsSection(): string {
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7h16M4 12h16M4 17h16" />
               </svg>
             </button>
-            <span class="text-lg font-semibold tracking-tight">Toolbox</span>
+            <span class="brand-mark text-lg tracking-tight">Toolbox</span>
           </div>
           <nav class="navbar-center hidden gap-5 text-sm lg:flex">
             <a class="link link-hover text-base-content" href="/factory">Value Factory</a>
@@ -422,7 +463,7 @@ function componentsSection(): string {
         ([name, when, example]) =>
           `<article class="flex flex-col gap-3 border-t border-base-300 pt-6 first:border-t-0 first:pt-0">
             <div>
-              <h3 class="text-base font-semibold">${name}</h3>
+              <h3 class="text-base font-bold">${name}</h3>
               <p class="mt-1 text-sm text-base-content/65">${when}</p>
             </div>
             <div>${example}</div>
