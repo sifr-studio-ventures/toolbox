@@ -34,7 +34,7 @@ export function shell(user: FactoryUser, main: string): string {
       </header>
       <main class="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 page-shell">${main}</main>
       <footer class="border-t border-base-300 px-5 py-8 text-sm text-base-content/70 md:px-10">
-        Value Factory \u00b7 Toolbox \u00b7 a board anyone can open
+        Value Factory · Open Toolbox · a board anyone can open
       </footer>
     </div>
     <div class="drawer-side z-20">
