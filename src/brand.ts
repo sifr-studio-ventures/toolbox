@@ -1,8 +1,35 @@
+import {
+  appleTouchIconPng,
+  favicon16Png,
+  faviconPng,
+  openToolboxMarkPng,
+} from "./brand-assets";
+
+const pngHeaders = {
+  "Content-Type": "image/png",
+  "Cache-Control": "public, max-age=86400, immutable",
+} as const;
+
+function pngResponse(b64: string): Response {
+  const binary = atob(b64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+  return new Response(bytes, { headers: pngHeaders });
+}
+
+/** Brand PNG routes — compressed mark + favicons. */
+export const brandAssetRoutes: Record<string, () => Response> = {
+  "/open-toolbox-mark.png": () => pngResponse(openToolboxMarkPng),
+  "/favicon.png": () => pngResponse(faviconPng),
+  "/favicon-16.png": () => pngResponse(favicon16Png),
+  "/favicon-32.png": () => pngResponse(faviconPng),
+  "/apple-touch-icon.png": () => pngResponse(appleTouchIconPng),
+};
+
 /** Favicon + apple-touch link tags for layout head. */
 export function brandHeadLinks(): string {
   return `<link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16" />
-    <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />`;
 }
 
@@ -30,7 +57,7 @@ export function brandLockup(options?: {
       : size === "display"
         ? "brand-mark text-xl tracking-tight md:text-2xl"
         : "brand-mark text-xl tracking-tight";
-  const inner = `<img class="${markClass}" src="/open-toolbox-mark.png" width="1023" height="674" alt="" decoding="async" />
+  const inner = `<img class="${markClass}" src="/open-toolbox-mark.png" width="280" height="185" alt="" decoding="async" />
     <span class="${textClass}">Toolbox</span>`;
   if (options?.href === null) {
     return `<div class="brand-lockup ${className}">${inner}</div>`;

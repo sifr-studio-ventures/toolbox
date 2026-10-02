@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Vite serves the app at http://127.0.0.1:4317. Open http://127.0.0.1:4317/design-system for logo, Coolors swatches, Active `#023047`, type, icons, spacing, radii, and the DaisyUI pieces the app already uses. `predev` / `prebuild` write favicon + mark PNGs into `public/` from `brand-png/*.png.b64`. The Cloudflare Vite plugin runs the Worker in workerd and keeps a local D1 database under `.wrangler`.
+Vite serves the app at http://127.0.0.1:4317. Open http://127.0.0.1:4317/design-system for logo, Coolors swatches, Active `#023047`, type, icons, spacing, radii, and the DaisyUI pieces the app already uses. The Cloudflare Vite plugin runs the Worker in workerd and keeps a local D1 database under `.wrangler`.
 
 ```bash
 npm run typecheck

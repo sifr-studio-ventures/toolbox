@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { userFromCookie } from "./auth";
+import { brandAssetRoutes } from "./brand";
 import { canonicalHost } from "./canonical";
 import { registerFactory } from "./factory/routes";
 import { ensureReady } from "./migrate";
@@ -11,6 +12,10 @@ import type { AppContext } from "./types";
 const app = new Hono<AppContext>();
 
 app.use("*", canonicalHost);
+
+for (const [path, handler] of Object.entries(brandAssetRoutes)) {
+  app.get(path, () => handler());
+}
 
 app.use("*", async (c, next) => {
   if (!["GET", "HEAD", "OPTIONS"].includes(c.req.method)) {
