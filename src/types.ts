@@ -9,6 +9,7 @@ export type AppBindings = {
   ENVIRONMENT: string;
   RESEND_API_KEY?: string;
   EMAIL?: EmailBinding;
+  ASSETS?: Fetcher;
 };
 
 export type AppContext = {

@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prebuild": "node scripts/write-public-assets.mjs",
+    "predev": "node scripts/write-public-assets.mjs",
     "dev": "vite dev",
     "build": "vite build",
     "typecheck": "wrangler types && tsc --noEmit",

@@ -5,3 +5,6 @@ dist
 *.log
 agent-tools
 worker-configuration.d.ts
+# PNGs materialize from brand-png/*.b64 via scripts/write-public-assets.mjs
+public/*.png
+src/assets/*.png
