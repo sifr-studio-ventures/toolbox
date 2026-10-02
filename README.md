@@ -1,6 +1,6 @@
 # toolbox
 
-Toolbox is the Open Toolbox edge bench. A Hono app on Cloudflare Workers returns HTML. Tailwind and DaisyUI style the home page with the Coolors `toolbox` theme, Poppins typography, near-navy text `--text-navy` (`#021028`), and Active `#023047`. One button uses HTMX to swap in a fragment from `GET /stack`. The public design system lives at `/design-system`.
+Toolbox is the Open Toolbox edge bench. A Hono app on Cloudflare Workers returns HTML. Tailwind and DaisyUI style the home page with the Coolors `toolbox` theme, Poppins typography, near-navy text `--text-navy` (`#021028`), Active `#023047`, the soft 3D PNG logo mark, and roomier spacing. One button uses HTMX to swap in a fragment from `GET /stack`. The public design system lives at `/design-system`.
 
 ## Run locally
 
@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Vite serves the app at http://127.0.0.1:4317. Open http://127.0.0.1:4317/design-system for Coolors swatches, Active `#023047`, type, spacing, radii, and the DaisyUI pieces the app already uses. The Cloudflare Vite plugin runs the Worker in workerd and keeps a local D1 database under `.wrangler`.
+Vite serves the app at http://127.0.0.1:4317. Open http://127.0.0.1:4317/design-system for logo, Coolors swatches, Active `#023047`, type, icons, spacing, radii, and the DaisyUI pieces the app already uses. The Cloudflare Vite plugin runs the Worker in workerd and keeps a local D1 database under `.wrangler`.
 
 ```bash
 npm run typecheck

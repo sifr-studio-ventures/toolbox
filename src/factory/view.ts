@@ -1,3 +1,4 @@
+import { brandLockup, icon } from "../brand";
 import { escapeHtml } from "../html";
 import type { WorkspaceBoard } from "./db";
 
@@ -8,8 +9,8 @@ export type FactoryUser = { email: string } | null;
 
 export function shell(user: FactoryUser, main: string): string {
   const account = user
-    ? `<div class="flex items-center gap-2">
-        <span class="hidden max-w-40 truncate text-sm sm:inline">${escapeHtml(user.email)}</span>
+    ? `<div class="flex items-center gap-3">
+        <span class="hidden max-w-48 truncate text-sm sm:inline">${escapeHtml(user.email)}</span>
         <form method="post" action="/signout"><button class="btn btn-ghost btn-sm">Sign out</button></form>
       </div>`
     : `<a class="btn btn-primary btn-sm" href="/signin">Sign in</a>`;
@@ -17,30 +18,28 @@ export function shell(user: FactoryUser, main: string): string {
   return `<div class="drawer">
     <input id="nav-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex min-h-screen flex-col">
-      <header class="navbar border-b border-base-300 bg-base-100 px-4 md:px-8">
-        <div class="navbar-start gap-2">
+      <header class="navbar border-b border-base-300 bg-base-100">
+        <div class="navbar-start gap-3">
           <label for="nav-drawer" class="btn btn-ghost btn-square lg:hidden" aria-label="Open menu">
-            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7h16M4 12h16M4 17h16" />
-            </svg>
+            ${icon("menu", "icon icon-lg")}
           </label>
-          <a class="brand-mark text-lg tracking-tight" href="/">Toolbox</a>
+          ${brandLockup({ size: "nav" })}
         </div>
-        <nav class="navbar-center hidden gap-6 text-sm lg:flex">
+        <nav class="navbar-center hidden gap-8 text-sm lg:flex">
           <a href="/factory" class="link link-hover">Value Factory</a>
           <a href="/b/building-opentoolbox" class="link link-hover">Public board</a>
           <a href="/design-system" class="link link-hover">Design system</a>
         </nav>
         <div class="navbar-end">${account}</div>
       </header>
-      <main class="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-4 py-8 md:px-8">${main}</main>
-      <footer class="border-t border-base-300 px-4 py-6 text-sm text-base-content/70 md:px-8">
+      <main class="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 page-shell">${main}</main>
+      <footer class="border-t border-base-300 px-5 py-8 text-sm text-base-content/70 md:px-10">
         Value Factory \u00b7 Toolbox \u00b7 a board anyone can open
       </footer>
     </div>
     <div class="drawer-side z-20">
       <label for="nav-drawer" class="drawer-overlay" aria-label="Close menu"></label>
-      <ul class="menu min-h-full w-72 bg-base-100 p-4 text-base">
+      <ul class="menu min-h-full w-72 bg-base-100 text-base">
         <li><a href="/factory">Value Factory</a></li>
         <li><a href="/b/building-opentoolbox">Building opentoolbox</a></li>
         <li><a href="/design-system">Design system</a></li>
@@ -53,23 +52,23 @@ export function shell(user: FactoryUser, main: string): string {
 export function signInView(next: string, result: string): string {
   return `<section class="mx-auto w-full max-w-lg">
     <p class="text-sm font-medium uppercase tracking-[0.16em]">Value Factory</p>
-    <h1 class="mt-3 text-3xl font-extrabold">Sign in with a link</h1>
-    <p class="mt-3 text-base-content/80">
+    <h1 class="mt-4 text-3xl font-extrabold">Sign in with a link</h1>
+    <p class="mt-4 text-base-content/80">
       No password. Enter your email and we send a link that signs you in.
     </p>
-    <form class="mt-6 flex flex-col gap-4" hx-post="/auth/magic" hx-target="#auth-result" hx-swap="innerHTML">
+    <form class="mt-8 flex flex-col gap-5" hx-post="/auth/magic" hx-target="#auth-result" hx-swap="innerHTML">
       <input type="hidden" name="next" value="${escapeHtml(next)}" />
-      <label class="flex flex-col gap-1 text-sm">
+      <label class="flex flex-col gap-2 text-sm">
         <span class="font-medium">Email</span>
         <input class="input w-full" type="email" name="email" autocomplete="email" required placeholder="you@example.com" />
       </label>
       <button class="btn btn-primary">
         <span class="htmx-indicator loading loading-spinner loading-sm"></span>
-        Email me a sign-in link
+        ${icon("mail")} Email me a sign-in link
       </button>
     </form>
-    <div id="auth-result" class="mt-4">${result}</div>
-    <p class="mt-6 text-sm text-base-content/70">
+    <div id="auth-result" class="mt-5">${result}</div>
+    <p class="mt-8 text-sm text-base-content/70">
       You can also read the public board
       <a class="link" href="/b/building-opentoolbox">Building opentoolbox</a>
       without an account.
@@ -138,32 +137,32 @@ export function factoryHome(rows: WorkspaceBoard[], error: string | null): strin
                     )
                     .join("")}</ul>`;
             return `<article class="card bg-base-100 shadow-sm">
-              <div class="card-body gap-4">
+              <div class="card-body">
                 <h2 class="card-title">${escapeHtml(group.name)}</h2>
                 ${boards}
-                <form class="flex flex-col gap-2 sm:flex-row" method="post" action="/workspaces/${escapeHtml(id)}/boards">
+                <form class="flex flex-col gap-3 sm:flex-row" method="post" action="/workspaces/${escapeHtml(id)}/boards">
                   <input class="input w-full" name="name" required maxlength="80" placeholder="Board name" />
-                  <button class="btn btn-primary">Create board</button>
+                  <button class="btn btn-primary">${icon("plus")} Create board</button>
                 </form>
               </div>
             </article>`;
           })
           .join("");
 
-  return `<section class="flex flex-col gap-2">
+  return `<section class="flex flex-col gap-3">
       <p class="text-sm font-medium uppercase tracking-[0.16em]">Value Factory</p>
       <h1 class="text-3xl font-extrabold">Your boards</h1>
       <p class="max-w-2xl text-base-content/80">A board starts in Research and ends in Done. Move a card when the column's checklist is true.</p>
     </section>
     ${error ? `<div class="alert alert-error"><span>${escapeHtml(error)}</span></div>` : ""}
-    <section class="grid gap-4 lg:grid-cols-[1.4fr_0.8fr]">
-      <div class="flex flex-col gap-4">${workspaceCards}</div>
+    <section class="grid gap-6 lg:grid-cols-[1.4fr_0.8fr]">
+      <div class="flex flex-col gap-5">${workspaceCards}</div>
       <aside class="card h-fit bg-base-100 shadow-sm">
-        <div class="card-body gap-3">
+        <div class="card-body">
           <h2 class="card-title text-lg">New workspace</h2>
-          <form class="flex flex-col gap-3" method="post" action="/workspaces">
+          <form class="flex flex-col gap-4" method="post" action="/workspaces">
             <input class="input w-full" name="name" required maxlength="80" placeholder="Workspace name" />
-            <button class="btn btn-primary">Create workspace</button>
+            <button class="btn btn-primary">${icon("plus")} Create workspace</button>
           </form>
           <a class="link text-sm" href="/b/building-opentoolbox">Open the public board, Building opentoolbox</a>
         </div>
