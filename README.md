@@ -37,7 +37,9 @@ npm run db:migrate:preview
 
 ## Magic links
 
-Sign-in is email only. There is no password. Local dev (`localhost` or `127.0.0.1`) and preview (`ENVIRONMENT=preview`) show the sign-in link on the page, so you can sign in when email is not configured. Production sends through the Cloudflare Email binding when that send succeeds. If `RESEND_API_KEY` is set as a Worker secret, Resend is the fallback. Production without a working sender tells you that no email was sent. It does not pretend the message went out, and it does not print the link.
+Sign-in is email only. There is no password. Local dev (`localhost` or `127.0.0.1`) and preview (`ENVIRONMENT=preview`) show the sign-in link on the page, so you can sign in when email is not configured. Production sends through the Cloudflare Email binding as `Open Toolbox <noreply@opentoolbox.io>` when that send succeeds. If `RESEND_API_KEY` is set as a Worker secret, Resend is the fallback. Production without a working sender tells you that no email was sent. It does not pretend the message went out, and it does not print the link.
+
+Email auth for `opentoolbox.io` lives in Cloudflare DNS (SPF, DKIM, DMARC). Optional Worker secret name only: `RESEND_API_KEY`.
 
 ## Deploy and preview
 
