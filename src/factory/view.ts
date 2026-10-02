@@ -1,6 +1,8 @@
 import { escapeHtml } from "../html";
-import type { BoardView, CardView, ColumnView, WorkspaceBoard } from "./db";
-import type { DeliveryRow, WebhookRow } from "../webhooks";
+import type { WorkspaceBoard } from "./db";
+
+export { boardColumns } from "./columns";
+export { cardForm, boardPage, webhookPanel } from "./board-page";
 
 export type FactoryUser = { email: string } | null;
 
@@ -32,7 +34,7 @@ export function shell(user: FactoryUser, main: string): string {
       </header>
       <main class="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-4 py-8 md:px-8">${main}</main>
       <footer class="border-t border-base-300 px-4 py-6 text-sm text-base-content/70 md:px-8">
-        Value Factory · Toolbox · a board anyone can open
+        Value Factory \u00b7 Toolbox \u00b7 a board anyone can open
       </footer>
     </div>
     <div class="drawer-side z-20">
@@ -165,31 +167,4 @@ export function factoryHome(rows: WorkspaceBoard[], error: string | null): strin
         </div>
       </aside>
     </section>`;
-}
-
-export function boardColumns(
-  board: BoardView,
-  mode: "edit" | "read",
-  alert: string | null = null,
-  oob = false,
-): string {
-  const columns = board.columns
-    .map((column) => columnView(board, column, mode))
-    .join("");
-  const addColumn =
-    mode === "edit"
-      ? `<form class="flex w-[80vw] max-w-xs shrink-0 snap-start flex-col gap-2 rounded-box border border-dashed border-base-300 bg-base-100 p-3 sm:w-72" hx-post="/boards/${escapeHtml(board.id)}/columns" hx-target="#board-columns" hx-swap="outerHTML" hx-indicator="#board-pending">
-          <p class="text-sm font-medium">Add a column</p>
-          <input class="input input-sm w-full" name="name" required maxlength="40" placeholder="Column name" />
-          <button class="btn btn-sm btn-primary">Add column</button>
-        </form>`
-      : "";
-
-  const alertHtml = !oob
-    ? ""
-    : alert
-      ? `<div id="board-alert" hx-swap-oob="true" class="alert alert-error"><span>${escapeHtml(alert)}</span></div>`
-      : `<div id="board-alert" hx-swap-oob="true"></div>`;
-
-  return `${alertHtml}<div id="board-columns" class="flex snap-x gap-3 overflow-x-auto pb-3">${columns}${addColumn}</div>`;
 }
