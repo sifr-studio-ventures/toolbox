@@ -1,6 +1,8 @@
 import { brandLockup, icon } from "./brand";
-import { logoSection, colorSection, typeSection, iconsSection } from "./design-system-brand";
-import { spacingSection, radiiSection, componentsSection } from "./design-system-ui";
+import { logoSection, colorSection } from "./design-system-brand";
+import { typeSection, iconsSection } from "./design-system-type";
+import { spacingSection, radiiSection } from "./design-system-ui";
+import { componentsSection } from "./design-system-components";
 
 export function designSystemPage(): string {
   return `<div class="drawer">
