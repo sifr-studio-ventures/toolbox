@@ -54,7 +54,7 @@ app.get("/design-system", (c) => {
     layout(css, designSystemPage(), {
       title: "Design system · Toolbox",
       description:
-        "Colors, type, spacing, radii, and DaisyUI components Toolbox already uses on the bench and Value Factory.",
+        "Coolors palettes, Active #023047, type, spacing, radii, and DaisyUI components Toolbox uses on the bench and Value Factory.",
     }),
   );
 });

@@ -5,12 +5,12 @@ export function layout(
   body: string,
   options?: { title?: string; description?: string },
 ): string {
-  const title = options?.title ?? "Toolbox · Sifr Studio";
+  const title = options?.title ?? "Toolbox · Open Toolbox";
   const description =
     options?.description ??
-    "Sifr Studio's edge bench. HTML from a Hono Worker, DaisyUI on Tailwind, and the Value Factory board.";
+    "Open Toolbox on Cloudflare Workers. HTML from Hono, DaisyUI on Tailwind, and the Value Factory board.";
   return `<!doctype html>
-<html lang="en" data-theme="sifr">
+<html lang="en" data-theme="toolbox">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,7 +22,7 @@ export function layout(
     <style>${css}</style>
     <script src="https://unpkg.com/htmx.org@2.0.7"></script>
   </head>
-  <body class="min-h-screen bg-base-200 text-base-content">
+  <body class="min-h-screen bg-base-100 text-base-content">
     ${body}
   </body>
 </html>`;
@@ -41,75 +41,62 @@ export function homePage(): string {
           </label>
           <a class="text-lg font-semibold tracking-tight" href="/">Toolbox</a>
         </div>
-        <nav class="navbar-center hidden gap-6 text-sm lg:flex">
-          <a href="#bench" class="link link-hover">Bench</a>
-          <a href="/factory" class="link link-hover">Value Factory</a>
-          <a href="/design-system" class="link link-hover">Design system</a>
-          <a href="#swap" class="link link-hover">Swap</a>
+        <nav class="navbar-center hidden gap-5 text-sm lg:flex">
+          <a href="#bench" class="link link-hover text-base-content">Bench</a>
+          <a href="/factory" class="link link-hover text-base-content">Value Factory</a>
+          <a href="/design-system" class="link link-hover text-base-content">Design system</a>
+          <a href="#swap" class="link link-hover text-base-content">Swap</a>
         </nav>
         <div class="navbar-end gap-2">
           <a class="btn btn-primary btn-sm" href="/signin">Sign in</a>
         </div>
       </header>
 
-      <main class="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-10 px-4 py-10 md:px-8">
-        <section id="bench" class="hero rounded-box bg-base-100 shadow-sm">
-          <div class="hero-content w-full flex-col items-start gap-6 py-10 lg:flex-row lg:items-end lg:justify-between">
-            <div class="max-w-xl">
-              <p class="text-sm font-medium uppercase tracking-[0.16em] text-primary">Edge bench</p>
-              <h1 class="mt-3 text-4xl font-semibold leading-tight md:text-5xl">A Worker that answers in HTML.</h1>
-              <p class="mt-4 text-base leading-relaxed text-base-content/80">
-                Toolbox is the starter Sifr Studio uses to prove a site can live on Cloudflare Workers
-                without a client framework. Hono writes the page. Tailwind and DaisyUI dress it.
-                HTMX swaps one piece when you ask.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-2">
-              <a href="/factory" class="btn btn-primary">Open Value Factory</a>
-              <a href="#swap" class="btn btn-outline">Try the swap</a>
-            </div>
+      <main class="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-12 px-4 py-12 md:px-8">
+        <section id="bench" class="flex flex-col gap-5 border-b border-base-300 pb-12">
+          <p class="text-sm font-medium text-primary">Edge bench</p>
+          <h1 class="text-3xl font-semibold tracking-tight md:text-4xl">A Worker that answers in HTML.</h1>
+          <p class="max-w-2xl text-base leading-relaxed text-base-content/75">
+            Toolbox proves a site can live on Cloudflare Workers without a client framework.
+            Hono writes the page. Tailwind and DaisyUI dress it. HTMX swaps one piece when you ask.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <a href="/factory" class="btn btn-primary">Open Value Factory</a>
+            <a href="#swap" class="btn btn-outline">Try the swap</a>
           </div>
         </section>
 
-        <section id="stack" class="grid gap-4 md:grid-cols-3">
-          <article class="card bg-base-100 shadow-sm">
-            <div class="card-body">
-              <h2 class="card-title text-lg">Hono</h2>
-              <p>Routes return HTML. This page and the fragment below both come from the Worker, not a bundled client app.</p>
-            </div>
+        <section id="stack" class="grid gap-6 border-b border-base-300 pb-12 md:grid-cols-3">
+          <article class="flex flex-col gap-2">
+            <h2 class="text-base font-semibold">Hono</h2>
+            <p class="text-sm leading-relaxed text-base-content/70">Routes return HTML. This page and the fragment below both come from the Worker.</p>
           </article>
-          <article class="card bg-base-100 shadow-sm">
-            <div class="card-body">
-              <h2 class="card-title text-lg">DaisyUI</h2>
-              <p>Navbar, hero, cards, and the button use DaisyUI on Tailwind. The theme is the studio palette, named sifr.</p>
-            </div>
+          <article class="flex flex-col gap-2">
+            <h2 class="text-base font-semibold">DaisyUI</h2>
+            <p class="text-sm leading-relaxed text-base-content/70">Navbar, buttons, and boards use the <code class="text-xs">toolbox</code> theme built from Coolors tokens.</p>
           </article>
-          <article class="card bg-base-100 shadow-sm">
-            <div class="card-body">
-              <h2 class="card-title text-lg">HTMX</h2>
-              <p>One request to <code class="text-sm">/stack</code> replaces this panel. No React, no extra page load.</p>
-            </div>
+          <article class="flex flex-col gap-2">
+            <h2 class="text-base font-semibold">HTMX</h2>
+            <p class="text-sm leading-relaxed text-base-content/70">One request to <code class="text-xs">/stack</code> replaces a panel. No React, no extra page load.</p>
           </article>
         </section>
 
-        <section class="card bg-base-100 shadow-sm">
-          <div class="card-body gap-3 md:flex-row md:items-end md:justify-between">
-            <div>
-              <h2 class="card-title">Value Factory</h2>
-              <p>A kanban for taking an idea from research to done. The first board is public. Sign in when you want your own.</p>
-            </div>
-            <div class="card-actions">
-              <a class="btn btn-primary" href="/b/building-opentoolbox">Building opentoolbox</a>
-              <a class="btn btn-ghost" href="/signin">Sign in</a>
-            </div>
+        <section class="flex flex-col gap-4 border-b border-base-300 pb-12 sm:flex-row sm:items-end sm:justify-between">
+          <div class="max-w-xl">
+            <h2 class="text-xl font-semibold">Value Factory</h2>
+            <p class="mt-2 text-sm leading-relaxed text-base-content/70">A kanban from research to done. The first board is public. Sign in when you want your own.</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <a class="btn btn-primary btn-sm" href="/b/building-opentoolbox">Building opentoolbox</a>
+            <a class="btn btn-ghost btn-sm" href="/signin">Sign in</a>
           </div>
         </section>
 
         ${promptCard()}
       </main>
 
-      <footer class="border-t border-base-300 px-4 py-6 text-sm text-base-content/70 md:px-8">
-        Toolbox · Sifr Studio · HTML on Cloudflare Workers
+      <footer class="border-t border-base-300 px-4 py-6 text-sm text-base-content/60 md:px-8">
+        Toolbox · HTML on Cloudflare Workers · <a class="link link-hover" href="https://opentoolbox.io">opentoolbox.io</a>
       </footer>
     </div>
     <div class="drawer-side z-20">
@@ -126,13 +113,13 @@ export function homePage(): string {
 }
 
 function promptCard(): string {
-  return `<section id="stack-result" class="card border border-base-300 bg-base-100 shadow-sm">
-    <div class="card-body gap-4">
-      <h2 id="swap" class="card-title">Ask the worker</h2>
-      <p>
-        This card is the first HTML response. The button calls a Hono route and HTMX swaps the reply into this same spot.
+  return `<section id="stack-result" class="rounded border border-base-300 bg-base-100 p-5">
+    <div class="flex flex-col gap-4">
+      <h2 id="swap" class="text-xl font-semibold">Ask the worker</h2>
+      <p class="text-sm leading-relaxed text-base-content/70">
+        This panel is the first HTML response. The button calls a Hono route and HTMX swaps the reply into this same spot.
       </p>
-      <div class="card-actions">
+      <div>
         <button
           class="btn btn-primary"
           hx-get="/stack"
@@ -157,30 +144,30 @@ export function stackFragment(details: {
   const when = escapeHtml(details.when);
   const colo = escapeHtml(details.colo);
 
-  return `<section id="stack-result" class="card border border-success/30 bg-base-100 shadow-sm">
-    <div class="card-body gap-4">
+  return `<section id="stack-result" class="rounded border border-success/40 bg-base-100 p-5">
+    <div class="flex flex-col gap-4">
       <div class="flex flex-wrap items-center justify-between gap-3">
-        <h2 class="card-title">Worker reply</h2>
+        <h2 class="text-xl font-semibold">Worker reply</h2>
         <span class="badge badge-success">HTMX swap</span>
       </div>
-      <p>
-        Hono rendered this fragment on the Worker. HTMX replaced the card. The rest of the page stayed put.
+      <p class="text-sm leading-relaxed text-base-content/70">
+        Hono rendered this fragment on the Worker. HTMX replaced the panel. The rest of the page stayed put.
       </p>
       <dl class="grid gap-3 sm:grid-cols-3">
-        <div class="rounded-box bg-base-200 p-3">
-          <dt class="text-xs uppercase tracking-wide text-base-content/60">Environment</dt>
+        <div class="rounded border border-base-300 bg-base-200/40 p-3">
+          <dt class="text-xs uppercase tracking-wide text-base-content/50">Environment</dt>
           <dd class="mt-1 font-medium">${environment}</dd>
         </div>
-        <div class="rounded-box bg-base-200 p-3">
-          <dt class="text-xs uppercase tracking-wide text-base-content/60">When</dt>
+        <div class="rounded border border-base-300 bg-base-200/40 p-3">
+          <dt class="text-xs uppercase tracking-wide text-base-content/50">When</dt>
           <dd class="mt-1 font-medium">${when}</dd>
         </div>
-        <div class="rounded-box bg-base-200 p-3">
-          <dt class="text-xs uppercase tracking-wide text-base-content/60">Colo</dt>
+        <div class="rounded border border-base-300 bg-base-200/40 p-3">
+          <dt class="text-xs uppercase tracking-wide text-base-content/50">Colo</dt>
           <dd class="mt-1 font-medium">${colo}</dd>
         </div>
       </dl>
-      <div class="card-actions">
+      <div>
         <button
           class="btn btn-outline btn-primary"
           hx-get="/stack"
