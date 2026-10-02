@@ -11,24 +11,48 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Write src/design-system.ts from staged gzip halves
+      - name: Write and publish src/design-system.ts
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           python3 - <<'PY'
-          import base64, gzip, hashlib, pathlib
+          import base64, gzip, hashlib, json, os, pathlib, urllib.request
           h1 = pathlib.Path("_agent/ds.h1.gz.b64").read_text().strip()
           h2 = pathlib.Path("_agent/ds.h2.gz.b64").read_text().strip()
           data = gzip.decompress(base64.b64decode(h1 + h2))
-          pathlib.Path("src/design-system.ts").write_bytes(data)
           print(len(data), hashlib.sha1(data).hexdigest())
+          token = os.environ["GH_TOKEN"]
+          path = "src/design-system.ts"
+          branch = "cursor/logo-favicon-spacing-c7fb"
+          api = f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/contents/{path}"
+          req = urllib.request.Request(
+              api + f"?ref={branch}",
+              headers={
+                  "Authorization": f"Bearer {token}",
+                  "Accept": "application/vnd.github+json",
+                  "User-Agent": "assemble-ds",
+              },
+          )
+          with urllib.request.urlopen(req) as r:
+              meta = json.load(r)
+          body = json.dumps({
+              "message": "Update design-system page",
+              "content": base64.b64encode(data).decode(),
+              "branch": branch,
+              "sha": meta["sha"],
+          }).encode()
+          put = urllib.request.Request(
+              api,
+              data=body,
+              method="PUT",
+              headers={
+                  "Authorization": f"Bearer {token}",
+                  "Accept": "application/vnd.github+json",
+                  "User-Agent": "assemble-ds",
+                  "Content-Type": "application/json",
+              },
+          )
+          with urllib.request.urlopen(put) as r:
+              out = json.load(r)
+          print("commit", out["commit"]["sha"])
           PY
-      - name: Commit if changed
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/design-system.ts
-          if git diff --cached --quiet; then
-            echo "no change"
-          else
-            git commit -m "Update design-system page"
-            git push
-          fi
