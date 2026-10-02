@@ -24,7 +24,7 @@ export function shell(user: FactoryUser, main: string): string {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           </label>
-          <a class="text-lg font-semibold tracking-tight" href="/">Toolbox</a>
+          <a class="brand-mark text-lg tracking-tight" href="/">Toolbox</a>
         </div>
         <nav class="navbar-center hidden gap-6 text-sm lg:flex">
           <a href="/factory" class="link link-hover">Value Factory</a>
@@ -52,8 +52,8 @@ export function shell(user: FactoryUser, main: string): string {
 
 export function signInView(next: string, result: string): string {
   return `<section class="mx-auto w-full max-w-lg">
-    <p class="text-sm font-medium uppercase tracking-[0.16em] text-primary">Value Factory</p>
-    <h1 class="mt-3 text-3xl font-semibold">Sign in with a link</h1>
+    <p class="text-sm font-medium uppercase tracking-[0.16em]">Value Factory</p>
+    <h1 class="mt-3 text-3xl font-extrabold">Sign in with a link</h1>
     <p class="mt-3 text-base-content/80">
       No password. Enter your email and we send a link that signs you in.
     </p>
@@ -151,8 +151,8 @@ export function factoryHome(rows: WorkspaceBoard[], error: string | null): strin
           .join("");
 
   return `<section class="flex flex-col gap-2">
-      <p class="text-sm font-medium uppercase tracking-[0.16em] text-primary">Value Factory</p>
-      <h1 class="text-3xl font-semibold">Your boards</h1>
+      <p class="text-sm font-medium uppercase tracking-[0.16em]">Value Factory</p>
+      <h1 class="text-3xl font-extrabold">Your boards</h1>
       <p class="max-w-2xl text-base-content/80">A board starts in Research and ends in Done. Move a card when the column's checklist is true.</p>
     </section>
     ${error ? `<div class="alert alert-error"><span>${escapeHtml(error)}</span></div>` : ""}

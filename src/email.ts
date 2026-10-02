@@ -27,8 +27,8 @@ function magicLinkCopy(link: string): { subject: string; text: string; html: str
     "— Open Toolbox",
   ].join("\n");
   const html = [
-    `<div style="font-family:Georgia,'Times New Roman',serif;line-height:1.55;color:#023047;max-width:32rem">`,
-    `<p style="font-size:22px;margin:0 0 16px;font-weight:700">Open Toolbox</p>`,
+    `<div style="font-family:Poppins,ui-sans-serif,system-ui,sans-serif;line-height:1.55;color:#021028;max-width:32rem">`,
+    `<p style="font-size:22px;margin:0 0 16px;font-weight:800;color:#021028">Open Toolbox</p>`,
     `<p style="margin:0 0 16px">Use this link to sign in. It expires in 30 minutes.</p>`,
     `<p style="margin:0 0 20px"><a href="${link}" style="color:#023047;font-weight:700">Sign in to Open Toolbox</a></p>`,
     `<p style="margin:0;color:#555;font-size:14px">Sign-in URL:<br><a href="${link}" style="color:#023047;word-break:break-all">${link}</a></p>`,

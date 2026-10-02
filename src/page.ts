@@ -19,10 +19,16 @@ export function layout(
       name="description"
       content="${escapeHtml(description)}"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>${css}</style>
     <script src="https://unpkg.com/htmx.org@2.0.7"></script>
   </head>
-  <body class="min-h-screen bg-base-100 text-base-content">
+  <body class="min-h-screen bg-base-100 font-sans text-base-content">
     ${body}
   </body>
 </html>`;
@@ -39,7 +45,7 @@ export function homePage(): string {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           </label>
-          <a class="text-lg font-semibold tracking-tight" href="/">Toolbox</a>
+          <a class="brand-mark text-lg tracking-tight" href="/">Toolbox</a>
         </div>
         <nav class="navbar-center hidden gap-5 text-sm lg:flex">
           <a href="#bench" class="link link-hover text-base-content">Bench</a>
@@ -54,9 +60,9 @@ export function homePage(): string {
 
       <main class="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-12 px-4 py-12 md:px-8">
         <section id="bench" class="flex flex-col gap-5 border-b border-base-300 pb-12">
-          <p class="text-sm font-medium text-primary">Edge bench</p>
-          <h1 class="text-3xl font-semibold tracking-tight md:text-4xl">A Worker that answers in HTML.</h1>
-          <p class="max-w-2xl text-base leading-relaxed text-base-content/75">
+          <p class="text-sm font-medium">Edge bench</p>
+          <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">A Worker that answers in HTML.</h1>
+          <p class="max-w-2xl text-base font-normal leading-relaxed text-base-content/75">
             Toolbox proves a site can live on Cloudflare Workers without a client framework.
             Hono writes the page. Tailwind and DaisyUI dress it. HTMX swaps one piece when you ask.
           </p>
@@ -68,23 +74,23 @@ export function homePage(): string {
 
         <section id="stack" class="grid gap-6 border-b border-base-300 pb-12 md:grid-cols-3">
           <article class="flex flex-col gap-2">
-            <h2 class="text-base font-semibold">Hono</h2>
-            <p class="text-sm leading-relaxed text-base-content/70">Routes return HTML. This page and the fragment below both come from the Worker.</p>
+            <h2 class="text-base font-bold">Hono</h2>
+            <p class="text-sm font-normal leading-relaxed text-base-content/70">Routes return HTML. This page and the fragment below both come from the Worker.</p>
           </article>
           <article class="flex flex-col gap-2">
-            <h2 class="text-base font-semibold">DaisyUI</h2>
-            <p class="text-sm leading-relaxed text-base-content/70">Navbar, buttons, and boards use the <code class="text-xs">toolbox</code> theme built from Coolors tokens.</p>
+            <h2 class="text-base font-bold">DaisyUI</h2>
+            <p class="text-sm font-normal leading-relaxed text-base-content/70">Navbar, buttons, and boards use the <code class="text-xs">toolbox</code> theme built from Coolors tokens.</p>
           </article>
           <article class="flex flex-col gap-2">
-            <h2 class="text-base font-semibold">HTMX</h2>
-            <p class="text-sm leading-relaxed text-base-content/70">One request to <code class="text-xs">/stack</code> replaces a panel. No React, no extra page load.</p>
+            <h2 class="text-base font-bold">HTMX</h2>
+            <p class="text-sm font-normal leading-relaxed text-base-content/70">One request to <code class="text-xs">/stack</code> replaces a panel. No React, no extra page load.</p>
           </article>
         </section>
 
         <section class="flex flex-col gap-4 border-b border-base-300 pb-12 sm:flex-row sm:items-end sm:justify-between">
           <div class="max-w-xl">
-            <h2 class="text-xl font-semibold">Value Factory</h2>
-            <p class="mt-2 text-sm leading-relaxed text-base-content/70">A kanban from research to done. The first board is public. Sign in when you want your own.</p>
+            <h2 class="text-xl font-bold">Value Factory</h2>
+            <p class="mt-2 text-sm font-normal leading-relaxed text-base-content/70">A kanban from research to done. The first board is public. Sign in when you want your own.</p>
           </div>
           <div class="flex flex-wrap gap-2">
             <a class="btn btn-primary btn-sm" href="/b/building-opentoolbox">Building opentoolbox</a>
@@ -95,7 +101,7 @@ export function homePage(): string {
         ${promptCard()}
       </main>
 
-      <footer class="border-t border-base-300 px-4 py-6 text-sm text-base-content/60 md:px-8">
+      <footer class="border-t border-base-300 px-4 py-6 text-sm font-normal text-base-content/60 md:px-8">
         Toolbox · HTML on Cloudflare Workers · <a class="link link-hover" href="https://opentoolbox.io">opentoolbox.io</a>
       </footer>
     </div>
@@ -115,8 +121,8 @@ export function homePage(): string {
 function promptCard(): string {
   return `<section id="stack-result" class="rounded border border-base-300 bg-base-100 p-5">
     <div class="flex flex-col gap-4">
-      <h2 id="swap" class="text-xl font-semibold">Ask the worker</h2>
-      <p class="text-sm leading-relaxed text-base-content/70">
+      <h2 id="swap" class="text-xl font-bold">Ask the worker</h2>
+      <p class="text-sm font-normal leading-relaxed text-base-content/70">
         This panel is the first HTML response. The button calls a Hono route and HTMX swaps the reply into this same spot.
       </p>
       <div>
@@ -147,23 +153,23 @@ export function stackFragment(details: {
   return `<section id="stack-result" class="rounded border border-success/40 bg-base-100 p-5">
     <div class="flex flex-col gap-4">
       <div class="flex flex-wrap items-center justify-between gap-3">
-        <h2 class="text-xl font-semibold">Worker reply</h2>
+        <h2 class="text-xl font-bold">Worker reply</h2>
         <span class="badge badge-success">HTMX swap</span>
       </div>
-      <p class="text-sm leading-relaxed text-base-content/70">
+      <p class="text-sm font-normal leading-relaxed text-base-content/70">
         Hono rendered this fragment on the Worker. HTMX replaced the panel. The rest of the page stayed put.
       </p>
       <dl class="grid gap-3 sm:grid-cols-3">
         <div class="rounded border border-base-300 bg-base-200/40 p-3">
-          <dt class="text-xs uppercase tracking-wide text-base-content/50">Environment</dt>
+          <dt class="text-xs font-medium uppercase tracking-wide text-base-content/50">Environment</dt>
           <dd class="mt-1 font-medium">${environment}</dd>
         </div>
         <div class="rounded border border-base-300 bg-base-200/40 p-3">
-          <dt class="text-xs uppercase tracking-wide text-base-content/50">When</dt>
+          <dt class="text-xs font-medium uppercase tracking-wide text-base-content/50">When</dt>
           <dd class="mt-1 font-medium">${when}</dd>
         </div>
         <div class="rounded border border-base-300 bg-base-200/40 p-3">
-          <dt class="text-xs uppercase tracking-wide text-base-content/50">Colo</dt>
+          <dt class="text-xs font-medium uppercase tracking-wide text-base-content/50">Colo</dt>
           <dd class="mt-1 font-medium">${colo}</dd>
         </div>
       </dl>

@@ -463,7 +463,7 @@ function missing(c: Context<AppContext>, css: string, layout: Layout, user: User
       css,
       shell(
         user,
-        `<section class="mx-auto max-w-lg"><h1 class="text-2xl font-semibold">That board is not here</h1><p class="mt-3">The link may be old, or the board was removed.</p><a class="btn btn-primary mt-4" href="/factory">Back to Value Factory</a></section>`,
+        `<section class="mx-auto max-w-lg"><h1 class="text-2xl font-extrabold">That board is not here</h1><p class="mt-3">The link may be old, or the board was removed.</p><a class="btn btn-primary mt-4" href="/factory">Back to Value Factory</a></section>`,
       ),
       { title: "Board not found \u00b7 Toolbox" },
     ),

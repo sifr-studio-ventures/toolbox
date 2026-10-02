@@ -34,8 +34,8 @@ function columnView(board: BoardView, column: ColumnView, mode: "edit" | "read")
 
   const title =
     mode === "edit"
-      ? `<input class="input input-sm w-full font-semibold" name="name" value="${escapeHtml(column.name)}" aria-label="Column name" hx-patch="/boards/${escapeHtml(board.id)}/columns/${escapeHtml(column.id)}" hx-trigger="change" hx-target="#board-columns" hx-swap="outerHTML" hx-indicator="#board-pending" />`
-      : `<h2 class="px-1 text-sm font-semibold">${escapeHtml(column.name)}</h2>`;
+      ? `<input class="input input-sm w-full font-bold" name="name" value="${escapeHtml(column.name)}" aria-label="Column name" hx-patch="/boards/${escapeHtml(board.id)}/columns/${escapeHtml(column.id)}" hx-trigger="change" hx-target="#board-columns" hx-swap="outerHTML" hx-indicator="#board-pending" />`
+      : `<h2 class="px-1 text-sm font-bold">${escapeHtml(column.name)}</h2>`;
 
   const remove =
     mode === "edit"

@@ -1,6 +1,6 @@
 # toolbox
 
-Toolbox is the Open Toolbox edge bench. A Hono app on Cloudflare Workers returns HTML. Tailwind and DaisyUI style the home page with the Coolors `toolbox` theme (Active `#023047`). One button uses HTMX to swap in a fragment from `GET /stack`. The public design system lives at `/design-system`.
+Toolbox is the Open Toolbox edge bench. A Hono app on Cloudflare Workers returns HTML. Tailwind and DaisyUI style the home page with the Coolors `toolbox` theme, Poppins typography, near-navy text `--text-navy` (`#021028`), and Active `#023047`. One button uses HTMX to swap in a fragment from `GET /stack`. The public design system lives at `/design-system`.
 
 ## Run locally
 
