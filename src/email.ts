@@ -24,7 +24,7 @@ function magicLinkCopy(link: string): { subject: string; text: string; html: str
     "",
     "If you did not ask for this, ignore this email.",
     "",
-    "\u2014 Open Toolbox",
+    "— Open Toolbox",
   ].join("\n");
   const html = [
     `<div style="font-family:Poppins,ui-sans-serif,system-ui,sans-serif;line-height:1.55;color:#000000;max-width:32rem">`,

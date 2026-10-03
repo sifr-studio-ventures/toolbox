@@ -40,7 +40,7 @@ app.use("*", async (c, next) => {
             </div>
           </div>
         </main>`,
-        { title: "Database not ready \u00b7 Open Toolbox" },
+        { title: "Database not ready · Open Toolbox" },
       ),
       500,
     );
@@ -57,7 +57,7 @@ app.get("/", (c) => {
 app.get("/design-system", (c) => {
   return c.html(
     layout(css, designSystemPage(), {
-      title: "Design system \u00b7 Open Toolbox",
+      title: "Design system · Open Toolbox",
       description:
         "Logo-matched palette (active #2870F8, text #000000, warning, error), type, spacing, radii, and DaisyUI components Open Toolbox uses on the bench and Value Factory.",
     }),
