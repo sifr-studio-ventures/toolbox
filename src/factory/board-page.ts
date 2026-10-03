@@ -1,3 +1,4 @@
+import { icon } from "../brand";
 import { escapeHtml } from "../html";
 import type { BoardView, CardView } from "./db";
 import type { DeliveryRow, WebhookRow } from "../webhooks";
@@ -7,33 +8,40 @@ export function cardForm(boardId: string, card: CardView, error: string | null):
   const links = card.links
     .map((link) => (link.label === link.url ? link.url : `${link.label} | ${link.url}`))
     .join("\n");
-  return `<form class="flex flex-col gap-3" hx-post="/boards/${escapeHtml(boardId)}/cards/${escapeHtml(card.id)}" hx-target="#board-columns" hx-swap="outerHTML" hx-indicator="#board-pending">
-    <h3 class="text-lg font-bold">Edit card</h3>
-    ${error ? `<div class="alert alert-error"><span>${escapeHtml(error)}</span></div>` : ""}
-    <label class="flex flex-col gap-1 text-sm">
-      <span class="font-medium">Title</span>
-      <input class="input w-full" name="title" required maxlength="140" value="${escapeHtml(card.title)}" />
-    </label>
-    <label class="flex flex-col gap-1 text-sm">
-      <span class="font-medium">Owner</span>
-      <input class="input w-full" name="owner" maxlength="80" value="${escapeHtml(card.owner_label)}" placeholder="Who owns this?" />
-    </label>
-    <label class="flex flex-col gap-1 text-sm">
-      <span class="font-medium">Value score</span>
-      <input class="input w-full" type="number" name="value_score" min="0" max="10" step="1" value="${card.value_score}" />
-    </label>
-    <label class="flex flex-col gap-1 text-sm">
-      <span class="font-medium">Notes</span>
-      <textarea class="textarea w-full" name="notes" rows="4" maxlength="4000">${escapeHtml(card.notes)}</textarea>
-    </label>
-    <label class="flex flex-col gap-1 text-sm">
-      <span class="font-medium">Links</span>
-      <textarea class="textarea w-full" name="links" rows="3" placeholder="https://example.com&#10;Label | https://example.com">${escapeHtml(links)}</textarea>
-    </label>
-    <div class="modal-action">
-      <button class="btn btn-primary" type="submit">Save card</button>
-      <button class="btn btn-ghost" type="button" onclick="document.getElementById('card-dialog')?.close()">Close</button>
+  return `<form class="flex flex-col" hx-post="/boards/${escapeHtml(boardId)}/cards/${escapeHtml(card.id)}" hx-target="#board-columns" hx-swap="outerHTML" hx-indicator="#board-pending">
+    <header class="ot-modal-header">
+      <h3 class="ot-modal-title">Edit card</h3>
+      <button class="ot-modal-close" type="button" aria-label="Close" onclick="document.getElementById('card-dialog')?.close()">
+        ${icon("x", "icon icon-sm")}
+      </button>
+    </header>
+    <div class="ot-modal-body flex flex-col gap-3">
+      ${error ? `<div class="alert alert-error"><span>${escapeHtml(error)}</span></div>` : ""}
+      <label class="flex flex-col gap-1 text-sm">
+        <span class="font-medium">Title</span>
+        <input class="input w-full" name="title" required maxlength="140" value="${escapeHtml(card.title)}" />
+      </label>
+      <label class="flex flex-col gap-1 text-sm">
+        <span class="font-medium">Owner</span>
+        <input class="input w-full" name="owner" maxlength="80" value="${escapeHtml(card.owner_label)}" placeholder="Who owns this?" />
+      </label>
+      <label class="flex flex-col gap-1 text-sm">
+        <span class="font-medium">Value score</span>
+        <input class="input w-full" type="number" name="value_score" min="0" max="10" step="1" value="${card.value_score}" />
+      </label>
+      <label class="flex flex-col gap-1 text-sm">
+        <span class="font-medium">Notes</span>
+        <textarea class="textarea w-full" name="notes" rows="4" maxlength="4000">${escapeHtml(card.notes)}</textarea>
+      </label>
+      <label class="flex flex-col gap-1 text-sm">
+        <span class="font-medium">Links</span>
+        <textarea class="textarea w-full" name="links" rows="3" placeholder="https://example.com&#10;Label | https://example.com">${escapeHtml(links)}</textarea>
+      </label>
     </div>
+    <footer class="ot-modal-footer">
+      <button class="btn btn-ghost" type="button" onclick="document.getElementById('card-dialog')?.close()">Cancel</button>
+      <button class="btn btn-primary" type="submit">Save card</button>
+    </footer>
   </form>`;
 }
 
@@ -61,7 +69,7 @@ export function boardPage(options: {
   const dialog =
     mode === "edit"
       ? `<dialog id="card-dialog" class="modal">
-          <div class="modal-box w-11/12 max-w-2xl">
+          <div class="modal-box ot-modal w-11/12 max-w-2xl">
             <div id="card-dialog-body"></div>
           </div>
           <form method="dialog" class="modal-backdrop"><button>close</button></form>

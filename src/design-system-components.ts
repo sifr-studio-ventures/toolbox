@@ -21,7 +21,7 @@ export function componentsSection(): string {
     ],
     [
       "Inputs",
-      "Taller fields. Prefer input-sm only in dense board columns.",
+      "At rest: light neutral border. On focus: Active border only — no glow, ring, or outline shadow. Coinbase form pattern.",
       `<div class="flex flex-col gap-4 sm:max-w-md">
         <label class="flex flex-col gap-2 text-sm">
           Email
@@ -35,17 +35,45 @@ export function componentsSection(): string {
           Notes
           <textarea class="textarea w-full" rows="3" placeholder="What still needs a decision?"></textarea>
         </label>
+        <label class="flex items-start gap-3 text-sm">
+          <input type="checkbox" class="checkbox mt-1" checked />
+          <span>Checklist item on a Value Factory card</span>
+        </label>
+      </div>`,
+    ],
+    [
+      "Select",
+      "Native <code class=\"text-xs\">&lt;select&gt;</code> styled like a text field with a chevron. Opens the browser list panel — no custom widget library. Coinbase + Square pattern.",
+      `<div class="flex flex-col gap-4 sm:max-w-md">
         <label class="flex flex-col gap-2 text-sm">
           Move to column
+          <select class="select w-full">
+            <option>Research</option>
+            <option>Build</option>
+            <option selected>Done</option>
+          </select>
+        </label>
+        <label class="flex flex-col gap-2 text-sm">
+          Dense board control
           <select class="select select-sm w-full">
             <option>Research</option>
             <option>Build</option>
             <option>Done</option>
           </select>
         </label>
-        <label class="flex items-start gap-3 text-sm">
-          <input type="checkbox" class="checkbox mt-1" checked />
-          <span>Checklist item on a Value Factory card</span>
+      </div>`,
+    ],
+    [
+      "Date",
+      "Native <code class=\"text-xs\">&lt;input type=\"date\"&gt;</code> with the same field chrome. Calendar affordance is the browser control.",
+      `<div class="flex flex-col gap-4 sm:max-w-md">
+        <label class="flex flex-col gap-2 text-sm">
+          Due date
+          <input class="input w-full" type="date" />
+        </label>
+        <label class="flex flex-col gap-2 text-sm">
+          Compact date
+          <input class="input input-sm w-full" type="date" value="2026-10-03" />
         </label>
       </div>`,
     ],
@@ -96,23 +124,42 @@ export function componentsSection(): string {
     ],
     [
       "Modals",
-      "Value Factory card editor shell.",
+      "Square-style bands: header (title + close), scrollable body, footer (Cancel + primary). Scrim behind. Native <code class=\"text-xs\">&lt;dialog&gt;</code> + tiny showModal/close JS.",
       `<div class="flex flex-col gap-4">
         <button class="btn btn-outline btn-sm w-fit" type="button" onclick="document.getElementById('design-card-dialog')?.showModal()">
           ${icon("pencil", "icon icon-sm")} Open card editor
         </button>
         <dialog id="design-card-dialog" class="modal">
-          <div class="modal-box w-11/12 max-w-2xl">
-            <h3 class="text-lg font-bold">Edit card</h3>
-            <p class="mt-3 text-sm text-base-content/70">Same shell Value Factory uses when you press Edit.</p>
-            <label class="mt-5 flex flex-col gap-2 text-sm">
-              Title
-              <input class="input w-full" value="Ship the design system page" />
-            </label>
-            <div class="modal-action">
-              <button class="btn btn-primary" type="button" onclick="document.getElementById('design-card-dialog')?.close()">Save card</button>
-              <button class="btn btn-ghost" type="button" onclick="document.getElementById('design-card-dialog')?.close()">Close</button>
+          <div class="modal-box ot-modal w-11/12 max-w-2xl">
+            <header class="ot-modal-header">
+              <h3 class="ot-modal-title">Edit card</h3>
+              <button class="ot-modal-close" type="button" aria-label="Close" onclick="document.getElementById('design-card-dialog')?.close()">
+                ${icon("x", "icon icon-sm")}
+              </button>
+            </header>
+            <div class="ot-modal-body flex flex-col gap-4">
+              <p class="text-sm text-base-content/70">Same shell Value Factory uses when you press Edit.</p>
+              <label class="flex flex-col gap-2 text-sm">
+                Title
+                <input class="input w-full" value="Ship the design system page" />
+              </label>
+              <label class="flex flex-col gap-2 text-sm">
+                Column
+                <select class="select w-full">
+                  <option>Research</option>
+                  <option selected>Build</option>
+                  <option>Done</option>
+                </select>
+              </label>
+              <label class="flex flex-col gap-2 text-sm">
+                Due date
+                <input class="input w-full" type="date" />
+              </label>
             </div>
+            <footer class="ot-modal-footer">
+              <button class="btn btn-ghost" type="button" onclick="document.getElementById('design-card-dialog')?.close()">Cancel</button>
+              <button class="btn btn-primary" type="button" onclick="document.getElementById('design-card-dialog')?.close()">Save card</button>
+            </footer>
           </div>
           <form method="dialog" class="modal-backdrop"><button>close</button></form>
         </dialog>
@@ -156,7 +203,7 @@ export function componentsSection(): string {
     ],
     [
       "Nav",
-      "Drawer + navbar with logo mark on every shell.",
+      "Drawer + navbar with a larger logo mark on every shell.",
       `<div class="rounded-box border border-base-300 bg-base-100">
         <header class="navbar border-b border-base-300">
           <div class="navbar-start gap-3">
@@ -200,7 +247,7 @@ export function componentsSection(): string {
   return section(
     "components",
     "Components",
-    "Live DaisyUI pieces already used on the bench and Value Factory, with the larger spacing scale.",
+    "Live DaisyUI pieces already used on the bench and Value Factory, restyled with Base/Coinbase + Square field and modal patterns.",
     body,
   );
 }
