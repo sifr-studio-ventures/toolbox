@@ -305,6 +305,7 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
   display: flex;
   align-items: center;
   border-bottom: 1.5px solid #e5e5e5;
+  color: #ffffff;
 }
 
 .ot-hero-atmosphere {
@@ -312,11 +313,18 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background:
-    radial-gradient(120% 80% at 10% -10%, rgba(40, 112, 248, 0.18), transparent 55%),
-    radial-gradient(90% 70% at 90% 0%, rgba(248, 208, 48, 0.16), transparent 50%),
-    radial-gradient(70% 60% at 70% 100%, rgba(40, 112, 248, 0.12), transparent 55%),
-    linear-gradient(180deg, #f7f9ff 0%, #ffffff 55%, #ffffff 100%);
+  background: #0a1628;
+}
+
+/* Natural full-bleed photo — workshop / maker bench (Unsplash) */
+.ot-hero-photo {
+  position: absolute;
+  inset: 0;
+  background-image: url("https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=2000&q=72");
+  background-size: cover;
+  background-position: center 40%;
+  transform: scale(1.04);
+  filter: saturate(0.92) contrast(1.05);
 }
 
 .ot-hero-shader {
@@ -324,28 +332,25 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
   inset: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.85;
+  opacity: 0.9;
+  mix-blend-mode: screen;
 }
 
-.ot-hero-mesh {
+/* Strong atmosphere so copy stays readable over the photo */
+.ot-hero-veil {
   position: absolute;
-  inset: -20%;
+  inset: 0;
   background:
-    conic-gradient(from 210deg at 30% 40%, rgba(40, 112, 248, 0.08), transparent 40%, rgba(248, 208, 48, 0.07), transparent 75%, rgba(40, 112, 248, 0.06)),
-    repeating-linear-gradient(
-      -12deg,
-      transparent 0 18px,
-      rgba(0, 0, 0, 0.015) 18px 19px
-    );
-  animation: ot-mesh-drift 22s ease-in-out infinite alternate;
-  mix-blend-mode: multiply;
+    linear-gradient(105deg, rgba(2, 16, 40, 0.88) 0%, rgba(2, 16, 40, 0.72) 42%, rgba(2, 16, 40, 0.45) 100%),
+    radial-gradient(90% 70% at 85% 15%, rgba(40, 112, 248, 0.28), transparent 55%),
+    radial-gradient(70% 60% at 70% 100%, rgba(248, 208, 48, 0.14), transparent 55%);
 }
 
 .ot-hero-glow {
   position: absolute;
   border-radius: 999px;
-  filter: blur(48px);
-  opacity: 0.55;
+  filter: blur(56px);
+  opacity: 0.45;
 }
 
 .ot-hero-glow--a {
@@ -353,7 +358,7 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
   height: min(42vw, 22rem);
   left: -4rem;
   top: 18%;
-  background: rgba(40, 112, 248, 0.22);
+  background: rgba(40, 112, 248, 0.35);
   animation: ot-glow-a 14s ease-in-out infinite alternate;
 }
 
@@ -362,17 +367,8 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
   height: min(36vw, 18rem);
   right: -2rem;
   bottom: 12%;
-  background: rgba(248, 208, 48, 0.2);
+  background: rgba(248, 208, 48, 0.28);
   animation: ot-glow-b 16s ease-in-out infinite alternate;
-}
-
-@keyframes ot-mesh-drift {
-  from {
-    transform: translate3d(-1.5%, -1%, 0) rotate(-1deg);
-  }
-  to {
-    transform: translate3d(2%, 1.5%, 0) rotate(1.5deg);
-  }
 }
 
 @keyframes ot-glow-a {
@@ -394,7 +390,10 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ot-hero-mesh,
+  .ot-hero-photo {
+    transform: none;
+  }
+
   .ot-hero-glow--a,
   .ot-hero-glow--b {
     animation: none;
@@ -421,17 +420,13 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 
-.ot-hero-brand .brand-mark {
-  font-size: clamp(1.75rem, 3.5vw, 2.35rem);
-}
-
 .ot-hero-title {
   max-width: 16ch;
   font-size: clamp(2.35rem, 6.2vw, 4.25rem);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.035em;
-  color: var(--text);
+  color: #ffffff;
   animation: ot-rise 0.7s ease-out both;
 }
 
@@ -440,8 +435,19 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
   font-size: clamp(1.05rem, 1.7vw, 1.2rem);
   font-weight: 400;
   line-height: 1.55;
-  color: rgba(0, 0, 0, 0.68);
+  color: rgba(255, 255, 255, 0.86);
   animation: ot-rise 0.8s ease-out 0.08s both;
+}
+
+.ot-hero-cta .btn-outline {
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #ffffff;
+  background: transparent;
+}
+
+.ot-hero-cta .btn-outline:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .ot-hero-cta {
@@ -484,10 +490,26 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 
-.ot-section--pricing {
-  border-top: 1.5px solid #e5e5e5;
+/* Pricing: contained band — not full-bleed like the hero; different surface */
+.ot-pricing-band {
+  width: 100%;
+  padding: clamp(3rem, 7vw, 4.5rem) var(--page-pad-x);
   background:
-    linear-gradient(180deg, #fafafa 0%, #ffffff 40%, #ffffff 100%);
+    linear-gradient(180deg, #eef3fb 0%, #e8eef8 55%, #eef3fb 100%);
+  border-top: 1.5px solid #d7e0ee;
+  border-bottom: 1.5px solid #d7e0ee;
+}
+
+@media (min-width: 768px) {
+  .ot-pricing-band {
+    padding-inline: var(--page-pad-x-md);
+  }
+}
+
+.ot-pricing-inner {
+  width: 100%;
+  max-width: 58rem;
+  margin-inline: auto;
 }
 
 .ot-section-head {
@@ -637,24 +659,15 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
   max-width: 34rem;
 }
 
-.ot-bento-live,
-.ot-bento-soon {
+.ot-bento-live {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 0.28rem 0.55rem;
   border-radius: 999px;
-}
-
-.ot-bento-live {
   color: var(--white);
   background: var(--active);
-}
-
-.ot-bento-soon {
-  color: rgba(0, 0, 0, 0.65);
-  background: #f5f5f5;
 }
 
 .ot-bento-cta {

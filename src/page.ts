@@ -23,6 +23,7 @@ export function layout(
     ${brandHeadLinks()}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap"
       rel="stylesheet"
@@ -41,6 +42,7 @@ type FeatureTile = {
   title: string;
   description: string;
   href?: string;
+  ctaLabel?: string;
   size?: "lg" | "md" | "sm";
   live?: boolean;
 };
@@ -48,17 +50,18 @@ type FeatureTile = {
 const FEATURES: FeatureTile[] = [
   {
     name: "kanban",
-    title: "Kanban · Value Factory",
+    title: "Kanban",
     description:
-      "Ship from research to done on a live board. Open Building Open Toolbox and move work in public.",
-    href: "/b/building-opentoolbox",
+      "Ship from research to done on a shared board — columns, cards, and status in one place.",
     size: "lg",
-    live: true,
   },
   {
     name: "book",
     title: "Docs",
-    description: "Specs, PRDs, and launch notes next to the work — not buried in another tab.",
+    description:
+      "Specs, PRDs, and launch notes next to the work — plus the live design system for UI patterns.",
+    href: "/design-system",
+    ctaLabel: "Open design system",
     size: "md",
   },
   {
@@ -76,7 +79,8 @@ const FEATURES: FeatureTile[] = [
   {
     name: "chat",
     title: "Chat",
-    description: "Team threads that stay tied to boards, docs, and customer signals.",
+    description:
+      "Customer support chat — tickets and conversations tied to accounts, not scattered inboxes.",
     size: "sm",
   },
   {
@@ -100,7 +104,7 @@ const FEATURES: FeatureTile[] = [
   {
     name: "survey",
     title: "Surveys",
-    description: "Ask users what blocked them — and feed answers straight into the factory.",
+    description: "Ask users what blocked them — and feed answers straight into the backlog.",
     size: "sm",
   },
   {
@@ -118,19 +122,23 @@ function featureTile(feature: FeatureTile): string {
       : feature.size === "md"
         ? "ot-bento-tile ot-bento-tile--md"
         : "ot-bento-tile";
-  const live = feature.live
+  const badge = feature.live
     ? `<span class="ot-bento-live">Live</span>`
-    : `<span class="ot-bento-soon">In toolkit</span>`;
+    : "";
+  const cta =
+    feature.href && feature.ctaLabel
+      ? `<span class="ot-bento-cta">${icon("arrow-right", "icon icon-sm")} ${escapeHtml(feature.ctaLabel)}</span>`
+      : "";
   const body = `<div class="ot-bento-icon text-primary">${icon(feature.name, "icon icon-lg")}</div>
       <div class="ot-bento-copy">
         <div class="ot-bento-title-row">
           <h3 class="ot-bento-title">${escapeHtml(feature.title)}</h3>
-          ${live}
+          ${badge}
         </div>
         <p class="ot-bento-desc">${escapeHtml(feature.description)}</p>
-      </div>`;
+      </div>${cta}`;
   if (feature.href) {
-    return `<a class="${sizeClass} ot-bento-tile--link" href="${escapeHtml(feature.href)}">${body}<span class="ot-bento-cta">${icon("arrow-right", "icon icon-sm")} Open board</span></a>`;
+    return `<a class="${sizeClass} ot-bento-tile--link" href="${escapeHtml(feature.href)}">${body}</a>`;
   }
   return `<article class="${sizeClass}">${body}</article>`;
 }
@@ -183,34 +191,29 @@ export function homePage(): string {
         <nav class="navbar-center hidden gap-8 text-sm lg:flex">
           <a href="#features" class="link link-hover text-base-content">Features</a>
           <a href="#pricing" class="link link-hover text-base-content">Pricing</a>
-          <a href="/factory" class="link link-hover text-base-content">Value Factory</a>
-          <a href="/design-system" class="link link-hover text-base-content">Design system</a>
         </nav>
         <div class="navbar-end gap-3">
-          <a class="btn btn-ghost btn-sm hidden sm:inline-flex" href="/signin">Sign in</a>
-          <a class="btn btn-primary btn-sm" href="/factory">Get started</a>
+          <a class="btn btn-primary btn-sm" href="/signin">Sign in</a>
         </div>
       </header>
 
       <main>
         <section class="ot-hero" aria-label="Open Toolbox hero">
           <div class="ot-hero-atmosphere" aria-hidden="true">
+            <div class="ot-hero-photo"></div>
             <canvas id="ot-hero-shader" class="ot-hero-shader"></canvas>
-            <div class="ot-hero-mesh"></div>
+            <div class="ot-hero-veil"></div>
             <div class="ot-hero-glow ot-hero-glow--a"></div>
             <div class="ot-hero-glow ot-hero-glow--b"></div>
           </div>
           <div class="ot-hero-inner">
-            ${brandLockup({ href: null, size: "hero", className: "ot-hero-brand" })}
             <h1 class="ot-hero-title">All the tools you need to grow your product</h1>
             <p class="ot-hero-support">
-              Open Toolbox is the product-team toolkit — docs, canvas, kanban, CRM, chat, analytics,
-              forms, popups, surveys, and bug reporting — so research to ship stays in one place.
+              Open Toolbox is the product-team toolkit — docs, canvas, kanban, CRM, support chat,
+              analytics, forms, popups, surveys, and bug reporting — so research to ship stays in one place.
             </p>
             <div class="ot-hero-cta">
-              <a href="/factory" class="btn btn-primary">${icon("layers")} Open Value Factory</a>
-              <a href="/signin" class="btn btn-outline">Get started</a>
-              <a href="/signin" class="btn btn-ghost">Sign in</a>
+              <a href="/signin" class="btn btn-primary">Sign in</a>
             </div>
           </div>
         </section>
@@ -220,8 +223,8 @@ export function homePage(): string {
             <p class="ot-eyebrow">Toolkit</p>
             <h2 class="ot-section-title">One bench for product ops</h2>
             <p class="ot-section-support">
-              Built for teams who refuse to glue ten apps together. Live Value Factory first;
-              the rest of the kit ships beside it.
+              Built for teams who refuse to glue ten apps together. Kanban, docs, CRM, support chat,
+              and the rest of the kit — planned around how product teams actually ship.
             </p>
           </div>
           <div class="ot-bento">
@@ -229,59 +232,62 @@ export function homePage(): string {
           </div>
         </section>
 
-        <section id="pricing" class="ot-section ot-section--pricing">
-          <div class="ot-section-head">
-            <p class="ot-eyebrow">Pricing</p>
-            <h2 class="ot-section-title">Start free. Grow when the team does.</h2>
-            <p class="ot-section-support">
-              No fake checkout. Paid tiers are coming soon — Free already opens Value Factory and sign-in today.
-            </p>
-          </div>
-          <div class="ot-price-grid">
-            ${pricingTier({
-              name: "Free",
-              price: "$0",
-              note: "Forever for getting started",
-              description: "Open the public board, sign in, and run Value Factory.",
-              features: [
-                "Public Value Factory board",
-                "Magic-link sign in",
-                "Share links & webhooks",
-                "Design system on the edge",
-              ],
-              ctaLabel: "Open Value Factory",
-              ctaHref: "/factory",
-            })}
-            ${pricingTier({
-              name: "Pro",
-              price: "$19",
-              note: "per seat / month · coming soon",
-              description: "Private boards and the full toolkit for solo builders shipping fast.",
-              features: [
-                "Private workspaces & boards",
-                "Docs, canvas, forms, surveys",
-                "Analytics + bug reporting",
-                "Popups for on-site prompts",
-              ],
-              ctaLabel: "Get started",
-              ctaHref: "/signin",
-              featured: true,
-              badge: "Most useful next",
-            })}
-            ${pricingTier({
-              name: "Team",
-              price: "$49",
-              note: "per seat / month · coming soon",
-              description: "Shared CRM, chat, and roles when product, sales, and support share one bench.",
-              features: [
-                "Everything in Pro",
-                "Shared CRM + chat",
-                "Roles & shared boards",
-                "Priority toolkit updates",
-              ],
-              ctaLabel: "Sign in",
-              ctaHref: "/signin",
-            })}
+        <section id="pricing" class="ot-pricing-band" aria-labelledby="pricing-heading">
+          <div class="ot-pricing-inner">
+            <div class="ot-section-head">
+              <p class="ot-eyebrow">Pricing</p>
+              <h2 id="pricing-heading" class="ot-section-title">Start free. Grow when the team does.</h2>
+              <p class="ot-section-support">
+                No fake checkout. Paid tiers are coming soon — Free already opens sign-in today.
+              </p>
+            </div>
+            <div class="ot-price-grid">
+              ${pricingTier({
+                name: "Free",
+                price: "$0",
+                note: "Forever for getting started",
+                description: "Sign in and explore the toolkit as it ships.",
+                features: [
+                  "Magic-link sign in",
+                  "Public toolkit updates",
+                  "Share links & webhooks",
+                  "Design system on the edge",
+                ],
+                ctaLabel: "Sign in",
+                ctaHref: "/signin",
+              })}
+              ${pricingTier({
+                name: "Pro",
+                price: "$19",
+                note: "per seat / month · coming soon",
+                description: "Private boards and the full toolkit for solo builders shipping fast.",
+                features: [
+                  "Private workspaces & boards",
+                  "Docs, canvas, forms, surveys",
+                  "Analytics + bug reporting",
+                  "Popups for on-site prompts",
+                ],
+                ctaLabel: "Sign in",
+                ctaHref: "/signin",
+                featured: true,
+                badge: "Most useful next",
+              })}
+              ${pricingTier({
+                name: "Team",
+                price: "$49",
+                note: "per seat / month · coming soon",
+                description:
+                  "Shared CRM, support chat, and roles when product, sales, and support share one bench.",
+                features: [
+                  "Everything in Pro",
+                  "Shared CRM + support chat",
+                  "Roles & shared boards",
+                  "Priority toolkit updates",
+                ],
+                ctaLabel: "Sign in",
+                ctaHref: "/signin",
+              })}
+            </div>
           </div>
         </section>
       </main>
@@ -291,7 +297,6 @@ export function homePage(): string {
           <p>Open Toolbox · product-team toolkit on Cloudflare Workers</p>
           <p class="flex flex-wrap gap-4">
             <a class="link link-hover" href="https://opentoolbox.io">opentoolbox.io</a>
-            <a class="link link-hover" href="/b/building-opentoolbox">Building Open Toolbox</a>
             <a class="link link-hover" href="/design-system">Design system</a>
           </p>
         </div>
@@ -302,9 +307,6 @@ export function homePage(): string {
       <ul class="menu min-h-full w-72 bg-base-100 text-base">
         <li><a href="#features">Features</a></li>
         <li><a href="#pricing">Pricing</a></li>
-        <li><a href="/factory">Value Factory</a></li>
-        <li><a href="/b/building-opentoolbox">Building Open Toolbox</a></li>
-        <li><a href="/design-system">Design system</a></li>
         <li><a href="/signin">Sign in</a></li>
       </ul>
     </div>
@@ -330,19 +332,19 @@ export function homePage(): string {
       }
       function frame(t) {
         ctx.clearRect(0, 0, w, h);
-        const tSec = t * 0.00015;
+        const tSec = t * 0.00012;
         const blobs = [
-          { x: 0.22 + Math.sin(tSec) * 0.04, y: 0.35 + Math.cos(tSec * 0.8) * 0.05, r: 0.42, c: "40,112,248" },
-          { x: 0.78 + Math.cos(tSec * 0.7) * 0.05, y: 0.28 + Math.sin(tSec * 1.1) * 0.04, r: 0.36, c: "248,208,48" },
-          { x: 0.55 + Math.sin(tSec * 0.5) * 0.06, y: 0.78 + Math.cos(tSec * 0.9) * 0.04, r: 0.4, c: "40,112,248" },
+          { x: 0.18 + Math.sin(tSec) * 0.03, y: 0.3 + Math.cos(tSec * 0.8) * 0.04, r: 0.48, c: "40,112,248" },
+          { x: 0.82 + Math.cos(tSec * 0.7) * 0.04, y: 0.25 + Math.sin(tSec * 1.1) * 0.03, r: 0.38, c: "248,208,48" },
+          { x: 0.5 + Math.sin(tSec * 0.5) * 0.05, y: 0.75 + Math.cos(tSec * 0.9) * 0.03, r: 0.44, c: "40,112,248" },
         ];
         for (const b of blobs) {
           const gx = b.x * w;
           const gy = b.y * h;
           const gr = Math.max(w, h) * b.r;
           const g = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr);
-          g.addColorStop(0, "rgba(" + b.c + ",0.28)");
-          g.addColorStop(0.45, "rgba(" + b.c + ",0.1)");
+          g.addColorStop(0, "rgba(" + b.c + ",0.22)");
+          g.addColorStop(0.45, "rgba(" + b.c + ",0.08)");
           g.addColorStop(1, "rgba(" + b.c + ",0)");
           ctx.fillStyle = g;
           ctx.fillRect(0, 0, w, h);
