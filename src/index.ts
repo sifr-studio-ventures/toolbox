@@ -59,7 +59,7 @@ app.get("/design-system", (c) => {
     layout(css, designSystemPage(), {
       title: "Design system · Open Toolbox",
       description:
-        "Coolors palettes, Active #023047, type, spacing, radii, and DaisyUI components Open Toolbox uses on the bench and Value Factory.",
+        "Logo-matched palette (active #2870F8, text #000000, warning, error), type, spacing, radii, and DaisyUI components Open Toolbox uses on the bench and Value Factory.",
     }),
   );
 });

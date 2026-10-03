@@ -5,19 +5,19 @@ export function typeSection(): string {
   return section(
     "type",
     "Type",
-    "Poppins sitewide. ExtraBold 800 for brand and big titles, Bold 700 for section titles and buttons, Regular/Medium 400/500 for body. Base size is 17px. All UI text uses --text-navy.",
+    "Poppins sitewide. ExtraBold 800 for brand and big titles, Bold 700 for section titles and buttons, Regular/Medium 400/500 for body. Base size is 17px. All UI text is full black #000000.",
     `<div class="flex flex-col gap-6">
       <div class="rounded-box border border-base-300 bg-base-100 p-5">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p class="text-sm font-medium">Near-navy text</p>
-            <p class="mt-2 text-sm text-base-content/70">Brand wordmark, headings, and body. Sampled from the Open Toolbox wordmark in the logo.</p>
+            <p class="text-sm font-medium">Text</p>
+            <p class="mt-2 text-sm text-base-content/70">Brand wordmark, headings, and body. Full black.</p>
           </div>
           <div class="flex items-center gap-4">
-            <span class="inline-block size-12 rounded-box border border-base-300" style="background:#021028"></span>
+            <span class="inline-block size-12 rounded-box border border-base-300" style="background:#000000"></span>
             <div>
-              <p class="font-mono text-sm">#021028</p>
-              <p class="font-mono text-xs text-base-content/50">--text-navy · base-content</p>
+              <p class="font-mono text-sm">#000000</p>
+              <p class="font-mono text-xs text-base-content/50">--text · base-content</p>
             </div>
           </div>
         </div>
@@ -28,7 +28,7 @@ export function typeSection(): string {
         <p class="text-3xl font-extrabold tracking-tight md:text-4xl">Page title · ExtraBold 800</p>
         <p class="text-xl font-bold">Section title · Bold 700</p>
         <p class="text-base font-normal leading-relaxed text-base-content/75">
-          Body copy · Regular 400. Soft opacity for supporting sentences. One near-navy for the full Open Toolbox wordmark — no blue/black split.
+          Body copy · Regular 400. Soft opacity for supporting sentences. One full black for the Open Toolbox wordmark.
         </p>
         <p class="text-sm font-medium text-base-content/60">Supporting note · Medium 500</p>
         <p class="text-xs font-normal text-base-content/50">Meta · Regular 400</p>

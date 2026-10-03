@@ -35,10 +35,12 @@ export function designSystemPage(): string {
           <p class="text-sm font-medium">Design system</p>
           <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">Tokens and components</h1>
           <p class="max-w-2xl text-base leading-relaxed text-base-content/75">
-            Coolors dark/work and blue/calm palettes, near-navy text
-            <code class="rounded-field bg-base-200 px-2 py-1 text-sm">--text-navy</code>
-            <code class="rounded-field bg-base-200 px-2 py-1 text-sm">#021028</code>,
-            Active <code class="rounded-field bg-base-200 px-2 py-1 text-sm">#023047</code>,
+            Minimal logo palette: Active
+            <code class="rounded-field bg-base-200 px-2 py-1 text-sm">#2870F8</code>,
+            text <code class="rounded-field bg-base-200 px-2 py-1 text-sm">#000000</code>,
+            white <code class="rounded-field bg-base-200 px-2 py-1 text-sm">#FFFFFF</code>,
+            warning <code class="rounded-field bg-base-200 px-2 py-1 text-sm">#F8D030</code>,
+            error <code class="rounded-field bg-base-200 px-2 py-1 text-sm">#F04048</code>.
             Poppins, the soft 3D PNG mark, chunky icons, and roomier spacing on the DaisyUI theme
             <code class="rounded-field bg-base-200 px-2 py-1 text-sm">toolbox</code>.
           </p>
