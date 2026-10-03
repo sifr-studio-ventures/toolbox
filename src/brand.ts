@@ -35,7 +35,7 @@ export function brandHeadLinks(): string {
 
 /**
  * Logo mark + wordmark.
- * size: nav (compact) | hero (landing) | display (design-system)
+ * size: nav (header — larger mark) | hero (landing) | display (design-system)
  * Pass href: null for a non-link display (hero / design-system samples).
  */
 export function brandLockup(options?: {
