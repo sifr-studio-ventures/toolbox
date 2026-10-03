@@ -87,7 +87,17 @@ export type IconName =
   | "trash"
   | "mail"
   | "home"
-  | "external-link";
+  | "external-link"
+  | "book"
+  | "canvas"
+  | "kanban"
+  | "users"
+  | "chat"
+  | "chart"
+  | "form"
+  | "popup"
+  | "survey"
+  | "bug";
 
 const ICONS: Record<IconName, string> = {
   menu: `<path d="M4 7h16M4 12h16M4 17h16" />`,
@@ -105,4 +115,14 @@ const ICONS: Record<IconName, string> = {
   mail: `<rect x="3" y="5" width="18" height="14" rx="3" /><path d="m4 8 8 5 8-5" />`,
   home: `<path d="M4 10.5 12 4l8 6.5" /><path d="M6 9.5V19a1 1 0 0 0 1 1h4v-5h2v5h4a1 1 0 0 0 1-1V9.5" />`,
   "external-link": `<path d="M14 4h6v6" /><path d="M10 14 20 4" /><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />`,
+  book: `<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5Z" /><path d="M4 5.5V21.5" /><path d="M8 7h8" /><path d="M8 11h8" />`,
+  canvas: `<rect x="3" y="3" width="18" height="18" rx="3" /><path d="M8 16c1.5-3 3-5 4-5s2.5 2 4 5" /><circle cx="9" cy="9" r="1.5" />`,
+  kanban: `<rect x="3" y="3" width="18" height="18" rx="3" /><path d="M8 7v10" /><path d="M12 7v6" /><path d="M16 7v8" />`,
+  users: `<circle cx="9" cy="8" r="3" /><path d="M3.5 19a5.5 5.5 0 0 1 11 0" /><circle cx="17" cy="9" r="2.5" /><path d="M15 19a4.5 4.5 0 0 1 5.5-4.3" />`,
+  chat: `<path d="M5 5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H10l-4 3v-3H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" /><path d="M8 10h8" /><path d="M8 13h5" />`,
+  chart: `<path d="M4 19h16" /><path d="M7 16V10" /><path d="M12 16V6" /><path d="M17 16v-4" />`,
+  form: `<rect x="4" y="3" width="16" height="18" rx="3" /><path d="M8 8h8" /><path d="M8 12h8" /><path d="M8 16h5" />`,
+  popup: `<rect x="3" y="5" width="18" height="14" rx="3" /><path d="M3 10h18" /><path d="M8 15h4" />`,
+  survey: `<rect x="5" y="3" width="14" height="18" rx="3" /><path d="M9 8h6" /><path d="M9 12h6" /><path d="m9 16 1.5 1.5L14 14" />`,
+  bug: `<path d="M8 9a4 4 0 0 1 8 0v7a4 4 0 0 1-8 0Z" /><path d="M12 5V3" /><path d="M7 8 4.5 6" /><path d="m17 8 2.5-2" /><path d="M4 12h3" /><path d="M17 12h3" /><path d="M7 16 4.5 18" /><path d="m17 16 2.5 2" />`,
 };

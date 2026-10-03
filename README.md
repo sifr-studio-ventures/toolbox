@@ -1,6 +1,6 @@
 # Open Toolbox
 
-Open Toolbox is the edge bench. A Hono app on Cloudflare Workers returns HTML. Tailwind and DaisyUI style the home page with the `toolbox` theme — a minimal logo-matched palette (Active `#2870F8`, text `#000000`, white `#FFFFFF`, warning `#F8D030`, error `#F04048`), Poppins, the soft 3D PNG logo mark, and roomier spacing. One button uses HTMX to swap in a fragment from `GET /stack`. The public design system lives at `/design-system`.
+Open Toolbox is the product-team toolkit on Cloudflare Workers. Hono returns HTML. Tailwind and DaisyUI style the marketing home (hero, feature bento, pricing) with the `toolbox` theme — Active `#2870F8`, text `#000000`, white `#FFFFFF`, warning `#F8D030`, error `#F04048`, Poppins, and the soft 3D PNG logo mark. Value Factory kanban lives at `/factory` and `/b/building-opentoolbox`. The public design system is at `/design-system`. `GET /stack` still returns an HTMX fragment for edge demos.
 
 ## Run locally
 

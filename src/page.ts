@@ -1,4 +1,4 @@
-import { brandHeadLinks, brandLockup, icon } from "./brand";
+import { brandHeadLinks, brandLockup, icon, type IconName } from "./brand";
 import { escapeHtml } from "./html";
 
 export function layout(
@@ -9,7 +9,7 @@ export function layout(
   const title = options?.title ?? "Open Toolbox";
   const description =
     options?.description ??
-    "Open Toolbox on Cloudflare Workers. HTML from Hono, DaisyUI on Tailwind, and the Value Factory board.";
+    "All the tools you need to grow your product. Docs, canvas, kanban, CRM, chat, analytics, forms, popups, surveys, and bug reporting — in one toolkit.";
   return `<!doctype html>
 <html lang="en" data-theme="toolbox">
   <head>
@@ -36,11 +36,144 @@ export function layout(
 </html>`;
 }
 
+type FeatureTile = {
+  name: IconName;
+  title: string;
+  description: string;
+  href?: string;
+  size?: "lg" | "md" | "sm";
+  live?: boolean;
+};
+
+const FEATURES: FeatureTile[] = [
+  {
+    name: "kanban",
+    title: "Kanban · Value Factory",
+    description:
+      "Ship from research to done on a live board. Open Building Open Toolbox and move work in public.",
+    href: "/b/building-opentoolbox",
+    size: "lg",
+    live: true,
+  },
+  {
+    name: "book",
+    title: "Docs",
+    description: "Specs, PRDs, and launch notes next to the work — not buried in another tab.",
+    size: "md",
+  },
+  {
+    name: "canvas",
+    title: "Canvas",
+    description: "Map journeys, flows, and product bets on a shared visual surface.",
+    size: "md",
+  },
+  {
+    name: "users",
+    title: "CRM",
+    description: "Keep accounts, contacts, and pipeline context beside product decisions.",
+    size: "sm",
+  },
+  {
+    name: "chat",
+    title: "Chat",
+    description: "Team threads that stay tied to boards, docs, and customer signals.",
+    size: "sm",
+  },
+  {
+    name: "chart",
+    title: "Analytics",
+    description: "Usage and funnel signals so you grow what people actually use.",
+    size: "sm",
+  },
+  {
+    name: "form",
+    title: "Forms",
+    description: "Capture intake, waitlists, and requests without a separate form stack.",
+    size: "sm",
+  },
+  {
+    name: "popup",
+    title: "Popups",
+    description: "On-site prompts for announcements, upgrades, and guided moments.",
+    size: "sm",
+  },
+  {
+    name: "survey",
+    title: "Surveys",
+    description: "Ask users what blocked them — and feed answers straight into the factory.",
+    size: "sm",
+  },
+  {
+    name: "bug",
+    title: "Bug reporting",
+    description: "Collect repros and severity so triage lands on the board, not in chat scrollback.",
+    size: "sm",
+  },
+];
+
+function featureTile(feature: FeatureTile): string {
+  const sizeClass =
+    feature.size === "lg"
+      ? "ot-bento-tile ot-bento-tile--lg"
+      : feature.size === "md"
+        ? "ot-bento-tile ot-bento-tile--md"
+        : "ot-bento-tile";
+  const live = feature.live
+    ? `<span class="ot-bento-live">Live</span>`
+    : `<span class="ot-bento-soon">In toolkit</span>`;
+  const body = `<div class="ot-bento-icon text-primary">${icon(feature.name, "icon icon-lg")}</div>
+      <div class="ot-bento-copy">
+        <div class="ot-bento-title-row">
+          <h3 class="ot-bento-title">${escapeHtml(feature.title)}</h3>
+          ${live}
+        </div>
+        <p class="ot-bento-desc">${escapeHtml(feature.description)}</p>
+      </div>`;
+  if (feature.href) {
+    return `<a class="${sizeClass} ot-bento-tile--link" href="${escapeHtml(feature.href)}">${body}<span class="ot-bento-cta">${icon("arrow-right", "icon icon-sm")} Open board</span></a>`;
+  }
+  return `<article class="${sizeClass}">${body}</article>`;
+}
+
+function pricingTier(options: {
+  name: string;
+  price: string;
+  note: string;
+  description: string;
+  features: string[];
+  ctaLabel: string;
+  ctaHref: string;
+  featured?: boolean;
+  badge?: string;
+}): string {
+  const featured = options.featured ? " ot-price-card--featured" : "";
+  const badge = options.badge
+    ? `<span class="ot-price-badge">${escapeHtml(options.badge)}</span>`
+    : "";
+  const btnClass = options.featured ? "btn btn-primary w-full" : "btn btn-outline w-full";
+  const items = options.features
+    .map(
+      (item) =>
+        `<li>${icon("check", "icon icon-sm text-primary")}<span>${escapeHtml(item)}</span></li>`,
+    )
+    .join("");
+  return `<article class="ot-price-card${featured}">
+    ${badge}
+    <h3 class="ot-price-name">${escapeHtml(options.name)}</h3>
+    <p class="ot-price-amount">${escapeHtml(options.price)}</p>
+    <p class="ot-price-note">${escapeHtml(options.note)}</p>
+    <p class="ot-price-desc">${escapeHtml(options.description)}</p>
+    <ul class="ot-price-list">${items}</ul>
+    <a class="${btnClass}" href="${escapeHtml(options.ctaHref)}">${escapeHtml(options.ctaLabel)}</a>
+  </article>`;
+}
+
 export function homePage(): string {
+  const tiles = FEATURES.map(featureTile).join("");
   return `<div class="drawer">
     <input id="nav-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex min-h-screen flex-col">
-      <header class="navbar border-b border-base-300 bg-base-100">
+      <header class="navbar border-b border-base-300 bg-base-100/90 ot-nav">
         <div class="navbar-start gap-3">
           <label for="nav-drawer" class="btn btn-ghost btn-square lg:hidden" aria-label="Open menu">
             ${icon("menu", "icon icon-lg")}
@@ -48,103 +181,187 @@ export function homePage(): string {
           ${brandLockup({ size: "nav" })}
         </div>
         <nav class="navbar-center hidden gap-8 text-sm lg:flex">
-          <a href="#bench" class="link link-hover text-base-content">Bench</a>
+          <a href="#features" class="link link-hover text-base-content">Features</a>
+          <a href="#pricing" class="link link-hover text-base-content">Pricing</a>
           <a href="/factory" class="link link-hover text-base-content">Value Factory</a>
           <a href="/design-system" class="link link-hover text-base-content">Design system</a>
-          <a href="#swap" class="link link-hover text-base-content">Swap</a>
         </nav>
         <div class="navbar-end gap-3">
-          <a class="btn btn-primary btn-sm" href="/signin">Sign in</a>
+          <a class="btn btn-ghost btn-sm hidden sm:inline-flex" href="/signin">Sign in</a>
+          <a class="btn btn-primary btn-sm" href="/factory">Get started</a>
         </div>
       </header>
 
-      <main class="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-16 page-shell">
-        <section id="bench" class="flex flex-col gap-6 border-b border-base-300 pb-14">
-          <div class="flex flex-wrap items-center gap-4">
-            ${brandLockup({ href: null, size: "hero" })}
+      <main>
+        <section class="ot-hero" aria-label="Open Toolbox hero">
+          <div class="ot-hero-atmosphere" aria-hidden="true">
+            <canvas id="ot-hero-shader" class="ot-hero-shader"></canvas>
+            <div class="ot-hero-mesh"></div>
+            <div class="ot-hero-glow ot-hero-glow--a"></div>
+            <div class="ot-hero-glow ot-hero-glow--b"></div>
           </div>
-          <p class="text-sm font-medium">Edge bench</p>
-          <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">A Worker that answers in HTML.</h1>
-          <p class="max-w-2xl text-base font-normal leading-relaxed text-base-content/75">
-            Open Toolbox proves a site can live on Cloudflare Workers without a client framework.
-            Hono writes the page. Tailwind and DaisyUI dress it. HTMX swaps one piece when you ask.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <a href="/factory" class="btn btn-primary">${icon("layers")} Open Value Factory</a>
-            <a href="#swap" class="btn btn-outline">${icon("zap")} Try the swap</a>
-          </div>
-        </section>
-
-        <section id="stack" class="grid gap-8 border-b border-base-300 pb-14 md:grid-cols-3">
-          <article class="flex flex-col gap-3">
-            <div class="text-primary">${icon("layout", "icon icon-lg")}</div>
-            <h2 class="text-lg font-bold">Hono</h2>
-            <p class="text-sm font-normal leading-relaxed text-base-content/70">Routes return HTML. This page and the fragment below both come from the Worker.</p>
-          </article>
-          <article class="flex flex-col gap-3">
-            <div class="text-primary">${icon("layers", "icon icon-lg")}</div>
-            <h2 class="text-lg font-bold">DaisyUI</h2>
-            <p class="text-sm font-normal leading-relaxed text-base-content/70">Navbar, buttons, and boards use the <code class="text-xs">toolbox</code> theme built from the logo-matched palette.</p>
-          </article>
-          <article class="flex flex-col gap-3">
-            <div class="text-primary">${icon("zap", "icon icon-lg")}</div>
-            <h2 class="text-lg font-bold">HTMX</h2>
-            <p class="text-sm font-normal leading-relaxed text-base-content/70">One request to <code class="text-xs">/stack</code> replaces a panel. No React, no extra page load.</p>
-          </article>
-        </section>
-
-        <section class="flex flex-col gap-5 border-b border-base-300 pb-14 sm:flex-row sm:items-end sm:justify-between">
-          <div class="max-w-xl">
-            <h2 class="text-xl font-bold">Value Factory</h2>
-            <p class="mt-3 text-sm font-normal leading-relaxed text-base-content/70">A kanban from research to done. The first board is public. Sign in when you want your own.</p>
-          </div>
-          <div class="flex flex-wrap gap-3">
-            <a class="btn btn-primary btn-sm" href="/b/building-opentoolbox">Building opentoolbox</a>
-            <a class="btn btn-ghost btn-sm" href="/signin">Sign in</a>
+          <div class="ot-hero-inner">
+            ${brandLockup({ href: null, size: "hero", className: "ot-hero-brand" })}
+            <h1 class="ot-hero-title">All the tools you need to grow your product</h1>
+            <p class="ot-hero-support">
+              Open Toolbox is the product-team toolkit — docs, canvas, kanban, CRM, chat, analytics,
+              forms, popups, surveys, and bug reporting — so research to ship stays in one place.
+            </p>
+            <div class="ot-hero-cta">
+              <a href="/factory" class="btn btn-primary">${icon("layers")} Open Value Factory</a>
+              <a href="/signin" class="btn btn-outline">Get started</a>
+              <a href="/signin" class="btn btn-ghost">Sign in</a>
+            </div>
           </div>
         </section>
 
-        ${promptCard()}
+        <section id="features" class="ot-section">
+          <div class="ot-section-head">
+            <p class="ot-eyebrow">Toolkit</p>
+            <h2 class="ot-section-title">One bench for product ops</h2>
+            <p class="ot-section-support">
+              Built for teams who refuse to glue ten apps together. Live Value Factory first;
+              the rest of the kit ships beside it.
+            </p>
+          </div>
+          <div class="ot-bento">
+            ${tiles}
+          </div>
+        </section>
+
+        <section id="pricing" class="ot-section ot-section--pricing">
+          <div class="ot-section-head">
+            <p class="ot-eyebrow">Pricing</p>
+            <h2 class="ot-section-title">Start free. Grow when the team does.</h2>
+            <p class="ot-section-support">
+              No fake checkout. Paid tiers are coming soon — Free already opens Value Factory and sign-in today.
+            </p>
+          </div>
+          <div class="ot-price-grid">
+            ${pricingTier({
+              name: "Free",
+              price: "$0",
+              note: "Forever for getting started",
+              description: "Open the public board, sign in, and run Value Factory.",
+              features: [
+                "Public Value Factory board",
+                "Magic-link sign in",
+                "Share links & webhooks",
+                "Design system on the edge",
+              ],
+              ctaLabel: "Open Value Factory",
+              ctaHref: "/factory",
+            })}
+            ${pricingTier({
+              name: "Pro",
+              price: "$19",
+              note: "per seat / month · coming soon",
+              description: "Private boards and the full toolkit for solo builders shipping fast.",
+              features: [
+                "Private workspaces & boards",
+                "Docs, canvas, forms, surveys",
+                "Analytics + bug reporting",
+                "Popups for on-site prompts",
+              ],
+              ctaLabel: "Get started",
+              ctaHref: "/signin",
+              featured: true,
+              badge: "Most useful next",
+            })}
+            ${pricingTier({
+              name: "Team",
+              price: "$49",
+              note: "per seat / month · coming soon",
+              description: "Shared CRM, chat, and roles when product, sales, and support share one bench.",
+              features: [
+                "Everything in Pro",
+                "Shared CRM + chat",
+                "Roles & shared boards",
+                "Priority toolkit updates",
+              ],
+              ctaLabel: "Sign in",
+              ctaHref: "/signin",
+            })}
+          </div>
+        </section>
       </main>
 
       <footer class="border-t border-base-300 px-5 py-8 text-sm font-normal text-base-content/60 md:px-10">
-        Open Toolbox · HTML on Cloudflare Workers · <a class="link link-hover" href="https://opentoolbox.io">opentoolbox.io</a>
+        <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p>Open Toolbox · product-team toolkit on Cloudflare Workers</p>
+          <p class="flex flex-wrap gap-4">
+            <a class="link link-hover" href="https://opentoolbox.io">opentoolbox.io</a>
+            <a class="link link-hover" href="/b/building-opentoolbox">Building Open Toolbox</a>
+            <a class="link link-hover" href="/design-system">Design system</a>
+          </p>
+        </div>
       </footer>
     </div>
     <div class="drawer-side z-20">
       <label for="nav-drawer" class="drawer-overlay" aria-label="Close menu"></label>
       <ul class="menu min-h-full w-72 bg-base-100 text-base">
-        <li><a href="#bench">Bench</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
         <li><a href="/factory">Value Factory</a></li>
-        <li><a href="/b/building-opentoolbox">Building opentoolbox</a></li>
+        <li><a href="/b/building-opentoolbox">Building Open Toolbox</a></li>
         <li><a href="/design-system">Design system</a></li>
-        <li><a href="#swap">Swap</a></li>
+        <li><a href="/signin">Sign in</a></li>
       </ul>
     </div>
-  </div>`;
-}
-
-function promptCard(): string {
-  return `<section id="stack-result" class="rounded-box border border-base-300 bg-base-100 p-6 md:p-8">
-    <div class="flex flex-col gap-5">
-      <h2 id="swap" class="text-xl font-bold">Ask the worker</h2>
-      <p class="text-sm font-normal leading-relaxed text-base-content/70">
-        This panel is the first HTML response. The button calls a Hono route and HTMX swaps the reply into this same spot.
-      </p>
-      <div>
-        <button
-          class="btn btn-primary"
-          hx-get="/stack"
-          hx-target="#stack-result"
-          hx-swap="outerHTML"
-          hx-indicator="#stack-pending"
-        >
-          <span id="stack-pending" class="htmx-indicator loading loading-spinner loading-sm"></span>
-          Check the stack
-        </button>
-      </div>
-    </div>
-  </section>`;
+  </div>
+  <script>
+    (() => {
+      const canvas = document.getElementById("ot-hero-shader");
+      if (!(canvas instanceof HTMLCanvasElement)) return;
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const ctx = canvas.getContext("2d", { alpha: true });
+      if (!ctx) return;
+      let raf = 0;
+      let w = 0;
+      let h = 0;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      function resize() {
+        const rect = canvas.getBoundingClientRect();
+        w = Math.max(1, Math.floor(rect.width));
+        h = Math.max(1, Math.floor(rect.height));
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      function frame(t) {
+        ctx.clearRect(0, 0, w, h);
+        const tSec = t * 0.00015;
+        const blobs = [
+          { x: 0.22 + Math.sin(tSec) * 0.04, y: 0.35 + Math.cos(tSec * 0.8) * 0.05, r: 0.42, c: "40,112,248" },
+          { x: 0.78 + Math.cos(tSec * 0.7) * 0.05, y: 0.28 + Math.sin(tSec * 1.1) * 0.04, r: 0.36, c: "248,208,48" },
+          { x: 0.55 + Math.sin(tSec * 0.5) * 0.06, y: 0.78 + Math.cos(tSec * 0.9) * 0.04, r: 0.4, c: "40,112,248" },
+        ];
+        for (const b of blobs) {
+          const gx = b.x * w;
+          const gy = b.y * h;
+          const gr = Math.max(w, h) * b.r;
+          const g = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr);
+          g.addColorStop(0, "rgba(" + b.c + ",0.28)");
+          g.addColorStop(0.45, "rgba(" + b.c + ",0.1)");
+          g.addColorStop(1, "rgba(" + b.c + ",0)");
+          ctx.fillStyle = g;
+          ctx.fillRect(0, 0, w, h);
+        }
+        if (!reduce) raf = requestAnimationFrame(frame);
+      }
+      resize();
+      frame(0);
+      window.addEventListener("resize", () => {
+        resize();
+        if (reduce) frame(0);
+      });
+      if (!reduce) raf = requestAnimationFrame(frame);
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) cancelAnimationFrame(raf);
+        else if (!reduce) raf = requestAnimationFrame(frame);
+      });
+    })();
+  </script>`;
 }
 
 export function stackFragment(details: {

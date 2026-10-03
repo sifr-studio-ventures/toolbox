@@ -51,7 +51,13 @@ app.use("*", async (c, next) => {
 });
 
 app.get("/", (c) => {
-  return c.html(layout(css, homePage()));
+  return c.html(
+    layout(css, homePage(), {
+      title: "Open Toolbox · All the tools you need to grow your product",
+      description:
+        "Open Toolbox is the product-team toolkit — docs, canvas, kanban, CRM, chat, analytics, forms, popups, surveys, and bug reporting.",
+    }),
+  );
 });
 
 app.get("/design-system", (c) => {
