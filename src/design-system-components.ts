@@ -85,7 +85,7 @@ export function componentsSection(): string {
     ],
     [
       "Alerts",
-      "Form and auth outcomes. Colors stay inside the Coolors set.",
+      "Form and auth outcomes. Colors stay inside the logo-matched set.",
       `<div class="flex flex-col gap-3">
         <div class="alert"><span>Default alert for a quiet notice.</span></div>
         <div class="alert alert-info"><span>Share this link. Anyone with it can read the board.</span></div>
