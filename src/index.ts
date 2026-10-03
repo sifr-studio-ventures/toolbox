@@ -55,7 +55,7 @@ app.get("/", (c) => {
     layout(css, homePage(), {
       title: "Open Toolbox · All the tools you need to grow your product",
       description:
-        "Open Toolbox is the product-team toolkit — docs, canvas, kanban, CRM, chat, analytics, forms, popups, surveys, and bug reporting.",
+        "Open Toolbox is the product-team toolkit — docs, canvas, kanban, CRM, support chat, analytics, forms, popups, surveys, and bug reporting.",
     }),
   );
 });
@@ -65,7 +65,7 @@ app.get("/design-system", (c) => {
     layout(css, designSystemPage(), {
       title: "Design system · Open Toolbox",
       description:
-        "Logo-matched palette (active #2870F8, text #000000, warning, error), type, spacing, radii, and DaisyUI components Open Toolbox uses on the bench and Value Factory.",
+        "Logo-matched palette (active #2870F8, text #000000, warning, error), type, spacing, radii, and DaisyUI components Open Toolbox uses.",
     }),
   );
 });
@@ -98,10 +98,10 @@ app.notFound(async (c) => {
         <div class="card bg-base-100 shadow-sm">
           <div class="card-body">
             <h1 class="card-title text-2xl">That path is not on the bench</h1>
-            <p>Try the home page, or open Value Factory.</p>
+            <p>Try the home page, or sign in to continue.</p>
             <div class="card-actions gap-3">
               <a class="btn btn-primary" href="/">Back home</a>
-              <a class="btn btn-ghost" href="/factory">Value Factory</a>
+              <a class="btn btn-ghost" href="/signin">Sign in</a>
             </div>
           </div>
         </div>
