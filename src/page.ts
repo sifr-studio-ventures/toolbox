@@ -271,4 +271,143 @@ export function homePage(): string {
             ${pricingTier({
               name: "Team",
               price: "$49",
-           
+              note: "per seat / month · coming soon",
+              description: "Shared CRM, chat, and roles when product, sales, and support share one bench.",
+              features: [
+                "Everything in Pro",
+                "Shared CRM + chat",
+                "Roles & shared boards",
+                "Priority toolkit updates",
+              ],
+              ctaLabel: "Sign in",
+              ctaHref: "/signin",
+            })}
+          </div>
+        </section>
+      </main>
+
+      <footer class="border-t border-base-300 px-5 py-8 text-sm font-normal text-base-content/60 md:px-10">
+        <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p>Open Toolbox · product-team toolkit on Cloudflare Workers</p>
+          <p class="flex flex-wrap gap-4">
+            <a class="link link-hover" href="https://opentoolbox.io">opentoolbox.io</a>
+            <a class="link link-hover" href="/b/building-opentoolbox">Building Open Toolbox</a>
+            <a class="link link-hover" href="/design-system">Design system</a>
+          </p>
+        </div>
+      </footer>
+    </div>
+    <div class="drawer-side z-20">
+      <label for="nav-drawer" class="drawer-overlay" aria-label="Close menu"></label>
+      <ul class="menu min-h-full w-72 bg-base-100 text-base">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="/factory">Value Factory</a></li>
+        <li><a href="/b/building-opentoolbox">Building Open Toolbox</a></li>
+        <li><a href="/design-system">Design system</a></li>
+        <li><a href="/signin">Sign in</a></li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const canvas = document.getElementById("ot-hero-shader");
+      if (!(canvas instanceof HTMLCanvasElement)) return;
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const ctx = canvas.getContext("2d", { alpha: true });
+      if (!ctx) return;
+      let raf = 0;
+      let w = 0;
+      let h = 0;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      function resize() {
+        const rect = canvas.getBoundingClientRect();
+        w = Math.max(1, Math.floor(rect.width));
+        h = Math.max(1, Math.floor(rect.height));
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      function frame(t) {
+        ctx.clearRect(0, 0, w, h);
+        const tSec = t * 0.00015;
+        const blobs = [
+          { x: 0.22 + Math.sin(tSec) * 0.04, y: 0.35 + Math.cos(tSec * 0.8) * 0.05, r: 0.42, c: "40,112,248" },
+          { x: 0.78 + Math.cos(tSec * 0.7) * 0.05, y: 0.28 + Math.sin(tSec * 1.1) * 0.04, r: 0.36, c: "248,208,48" },
+          { x: 0.55 + Math.sin(tSec * 0.5) * 0.06, y: 0.78 + Math.cos(tSec * 0.9) * 0.04, r: 0.4, c: "40,112,248" },
+        ];
+        for (const b of blobs) {
+          const gx = b.x * w;
+          const gy = b.y * h;
+          const gr = Math.max(w, h) * b.r;
+          const g = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr);
+          g.addColorStop(0, "rgba(" + b.c + ",0.28)");
+          g.addColorStop(0.45, "rgba(" + b.c + ",0.1)");
+          g.addColorStop(1, "rgba(" + b.c + ",0)");
+          ctx.fillStyle = g;
+          ctx.fillRect(0, 0, w, h);
+        }
+        if (!reduce) raf = requestAnimationFrame(frame);
+      }
+      resize();
+      frame(0);
+      window.addEventListener("resize", () => {
+        resize();
+        if (reduce) frame(0);
+      });
+      if (!reduce) raf = requestAnimationFrame(frame);
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) cancelAnimationFrame(raf);
+        else if (!reduce) raf = requestAnimationFrame(frame);
+      });
+    })();
+  </script>`;
+}
+
+export function stackFragment(details: {
+  environment: string;
+  when: string;
+  colo: string;
+}): string {
+  const environment = escapeHtml(details.environment);
+  const when = escapeHtml(details.when);
+  const colo = escapeHtml(details.colo);
+
+  return `<section id="stack-result" class="rounded-box border border-success/40 bg-base-100 p-6 md:p-8">
+    <div class="flex flex-col gap-5">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <h2 class="text-xl font-bold">Worker reply</h2>
+        <span class="badge badge-success">HTMX swap</span>
+      </div>
+      <p class="text-sm font-normal leading-relaxed text-base-content/70">
+        Hono rendered this fragment on the Worker. HTMX replaced the panel. The rest of the page stayed put.
+      </p>
+      <dl class="grid gap-4 sm:grid-cols-3">
+        <div class="rounded-box border border-base-300 bg-base-200/40 p-4">
+          <dt class="text-xs font-medium uppercase tracking-wide text-base-content/50">Environment</dt>
+          <dd class="mt-2 font-medium">${environment}</dd>
+        </div>
+        <div class="rounded-box border border-base-300 bg-base-200/40 p-4">
+          <dt class="text-xs font-medium uppercase tracking-wide text-base-content/50">When</dt>
+          <dd class="mt-2 font-medium">${when}</dd>
+        </div>
+        <div class="rounded-box border border-base-300 bg-base-200/40 p-4">
+          <dt class="text-xs font-medium uppercase tracking-wide text-base-content/50">Colo</dt>
+          <dd class="mt-2 font-medium">${colo}</dd>
+        </div>
+      </dl>
+      <div>
+        <button
+          class="btn btn-outline btn-primary"
+          hx-get="/stack"
+          hx-target="#stack-result"
+          hx-swap="outerHTML"
+          hx-indicator="#stack-pending"
+        >
+          <span id="stack-pending" class="htmx-indicator loading loading-spinner loading-sm"></span>
+          Ask again
+        </button>
+      </div>
+    </div>
+  </section>`;
+}
