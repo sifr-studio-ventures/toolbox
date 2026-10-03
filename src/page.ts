@@ -84,7 +84,7 @@ export function homePage(): string {
           <article class="flex flex-col gap-3">
             <div class="text-primary">${icon("layers", "icon icon-lg")}</div>
             <h2 class="text-lg font-bold">DaisyUI</h2>
-            <p class="text-sm font-normal leading-relaxed text-base-content/70">Navbar, buttons, and boards use the <code class="text-xs">toolbox</code> theme built from Coolors tokens.</p>
+            <p class="text-sm font-normal leading-relaxed text-base-content/70">Navbar, buttons, and boards use the <code class="text-xs">toolbox</code> theme built from the logo-matched palette.</p>
           </article>
           <article class="flex flex-col gap-3">
             <div class="text-primary">${icon("zap", "icon icon-lg")}</div>
