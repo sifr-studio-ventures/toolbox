@@ -41,7 +41,8 @@ export function designSystemPage(): string {
             white <code class="rounded-field bg-base-200 px-2 py-1 text-sm">#FFFFFF</code>,
             warning <code class="rounded-field bg-base-200 px-2 py-1 text-sm">#F8D030</code>,
             error <code class="rounded-field bg-base-200 px-2 py-1 text-sm">#F04048</code>.
-            Poppins, the soft 3D PNG mark, chunky icons, and roomier spacing on the DaisyUI theme
+            Poppins, Base/Coinbase field focus, Square modal bands, native select and date,
+            and roomier spacing on the DaisyUI theme
             <code class="rounded-field bg-base-200 px-2 py-1 text-sm">toolbox</code>.
           </p>
         </header>
