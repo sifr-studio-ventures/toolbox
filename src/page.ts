@@ -23,7 +23,6 @@ export function layout(
     ${brandHeadLinks()}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap"
       rel="stylesheet"
@@ -205,6 +204,7 @@ export function homePage(): string {
             <div class="ot-hero-veil"></div>
             <div class="ot-hero-glow ot-hero-glow--a"></div>
             <div class="ot-hero-glow ot-hero-glow--b"></div>
+            <div class="ot-hero-fade"></div>
           </div>
           <div class="ot-hero-inner">
             <h1 class="ot-hero-title">All the tools you need to grow your product</h1>
