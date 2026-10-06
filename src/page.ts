@@ -316,7 +316,7 @@ export function stackFragment(details: {
 
   return `<section id="stack-result" class="rounded-box border border-success/40 bg-base-100 p-6 md:p-8">
     <div class="flex flex-col gap-5">
-      <div class="flex flex-wrap items-items justify-between gap-4">
+      <div class="flex flex-wrap items-center justify-between gap-4">
         <h2 class="text-xl font-bold">Worker reply</h2>
         <span class="badge badge-success">HTMX swap</span>
       </div>
