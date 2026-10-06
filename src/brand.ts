@@ -2,17 +2,11 @@ import {
   appleTouchIconPng,
   favicon16Png,
   faviconPng,
-  heroMeadowJpg,
   openToolboxMarkPng,
 } from "./brand-assets";
 
 const pngHeaders = {
   "Content-Type": "image/png",
-  "Cache-Control": "public, max-age=86400, immutable",
-} as const;
-
-const jpegHeaders = {
-  "Content-Type": "image/jpeg",
   "Cache-Control": "public, max-age=86400, immutable",
 } as const;
 
@@ -27,18 +21,13 @@ function pngResponse(b64: string): Response {
   return new Response(bytesFromB64(b64), { headers: pngHeaders });
 }
 
-function jpegResponse(b64: string): Response {
-  return new Response(bytesFromB64(b64), { headers: jpegHeaders });
-}
-
-/** Brand + landing image routes — compressed mark, favicons, hero meadow. */
+/** Brand image routes — compressed mark and favicons. */
 export const brandAssetRoutes: Record<string, () => Response> = {
   "/open-toolbox-mark.png": () => pngResponse(openToolboxMarkPng),
   "/favicon.png": () => pngResponse(faviconPng),
   "/favicon-16.png": () => pngResponse(favicon16Png),
   "/favicon-32.png": () => pngResponse(faviconPng),
   "/apple-touch-icon.png": () => pngResponse(appleTouchIconPng),
-  "/hero-meadow.jpg": () => jpegResponse(heroMeadowJpg),
 };
 
 /** Favicon + apple-touch link tags for layout head. */
