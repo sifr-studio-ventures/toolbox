@@ -1,2 +1,1 @@
-export const heroMeadowJpg =
-  "PLACEHOLDER_TOO_LARGE_WILL_RETRY";
+FILE_TEXT_FROM_/tmp/toolbox/src/brand-assets/hero-meadow.ts
