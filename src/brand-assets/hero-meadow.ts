@@ -1,1 +1,1 @@
-FILE_TEXT_FROM_/tmp/toolbox/src/brand-assets/hero-meadow.ts
+PLACEHOLDER
