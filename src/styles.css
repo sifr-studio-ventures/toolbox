@@ -301,11 +301,13 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  width: 100%;
+  margin-inline: 0;
+  padding-inline: 0;
   min-height: min(92vh, 52rem);
   display: flex;
   align-items: center;
-  border-bottom: 1.5px solid #e5e5e5;
-  color: #ffffff;
+  color: var(--text);
 }
 
 .ot-hero-atmosphere {
@@ -313,18 +315,17 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: #0a1628;
+  background: #ffffff;
 }
 
-/* Natural full-bleed photo — workshop / maker bench (Unsplash) */
+/* Full-bleed meadow illustration — edge to edge, no inset */
 .ot-hero-photo {
   position: absolute;
   inset: 0;
-  background-image: url("https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=2000&q=72");
+  background-image: url("/hero-meadow.jpg");
   background-size: cover;
-  background-position: center 40%;
-  transform: scale(1.04);
-  filter: saturate(0.92) contrast(1.05);
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .ot-hero-shader {
@@ -332,25 +333,32 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
   inset: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.9;
-  mix-blend-mode: screen;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
 }
 
-/* Strong atmosphere so copy stays readable over the photo */
+/* Light veil so copy stays readable without hiding the illustration */
 .ot-hero-veil {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(105deg, rgba(2, 16, 40, 0.88) 0%, rgba(2, 16, 40, 0.72) 42%, rgba(2, 16, 40, 0.45) 100%),
-    radial-gradient(90% 70% at 85% 15%, rgba(40, 112, 248, 0.28), transparent 55%),
-    radial-gradient(70% 60% at 70% 100%, rgba(248, 208, 48, 0.14), transparent 55%);
+    linear-gradient(105deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.16) 38%, rgba(255, 255, 255, 0.04) 100%);
+}
+
+.ot-hero-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: min(42%, 16rem);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.55) 48%, #ffffff 100%);
 }
 
 .ot-hero-glow {
   position: absolute;
   border-radius: 999px;
   filter: blur(56px);
-  opacity: 0.45;
+  opacity: 0.18;
 }
 
 .ot-hero-glow--a {
@@ -390,10 +398,6 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ot-hero-photo {
-    transform: none;
-  }
-
   .ot-hero-glow--a,
   .ot-hero-glow--b {
     animation: none;
@@ -426,7 +430,7 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.035em;
-  color: #ffffff;
+  color: var(--text);
   animation: ot-rise 0.7s ease-out both;
 }
 
@@ -435,19 +439,19 @@ input.input[type="date"]::-webkit-calendar-picker-indicator {
   font-size: clamp(1.05rem, 1.7vw, 1.2rem);
   font-weight: 400;
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(0, 0, 0, 0.72);
   animation: ot-rise 0.8s ease-out 0.08s both;
 }
 
 .ot-hero-cta .btn-outline {
-  border-color: rgba(255, 255, 255, 0.55);
-  color: #ffffff;
+  border-color: rgba(0, 0, 0, 0.28);
+  color: var(--text);
   background: transparent;
 }
 
 .ot-hero-cta .btn-outline:hover {
-  border-color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--text);
+  background: rgba(255, 255, 255, 0.45);
 }
 
 .ot-hero-cta {
