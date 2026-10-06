@@ -198,14 +198,6 @@ export function homePage(): string {
 
       <main>
         <section class="ot-hero" aria-label="Open Toolbox hero">
-          <div class="ot-hero-atmosphere" aria-hidden="true">
-            <div class="ot-hero-photo"></div>
-            <canvas id="ot-hero-shader" class="ot-hero-shader"></canvas>
-            <div class="ot-hero-veil"></div>
-            <div class="ot-hero-glow ot-hero-glow--a"></div>
-            <div class="ot-hero-glow ot-hero-glow--b"></div>
-            <div class="ot-hero-fade"></div>
-          </div>
           <div class="ot-hero-inner">
             <h1 class="ot-hero-title">All the tools you need to grow your product</h1>
             <p class="ot-hero-support">
@@ -310,60 +302,7 @@ export function homePage(): string {
         <li><a href="/signin">Sign in</a></li>
       </ul>
     </div>
-  </div>
-  <script>
-    (() => {
-      const canvas = document.getElementById("ot-hero-shader");
-      if (!(canvas instanceof HTMLCanvasElement)) return;
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const ctx = canvas.getContext("2d", { alpha: true });
-      if (!ctx) return;
-      let raf = 0;
-      let w = 0;
-      let h = 0;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      function resize() {
-        const rect = canvas.getBoundingClientRect();
-        w = Math.max(1, Math.floor(rect.width));
-        h = Math.max(1, Math.floor(rect.height));
-        canvas.width = Math.floor(w * dpr);
-        canvas.height = Math.floor(h * dpr);
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      }
-      function frame(t) {
-        ctx.clearRect(0, 0, w, h);
-        const tSec = t * 0.00012;
-        const blobs = [
-          { x: 0.18 + Math.sin(tSec) * 0.03, y: 0.3 + Math.cos(tSec * 0.8) * 0.04, r: 0.48, c: "40,112,248" },
-          { x: 0.82 + Math.cos(tSec * 0.7) * 0.04, y: 0.25 + Math.sin(tSec * 1.1) * 0.03, r: 0.38, c: "248,208,48" },
-          { x: 0.5 + Math.sin(tSec * 0.5) * 0.05, y: 0.75 + Math.cos(tSec * 0.9) * 0.03, r: 0.44, c: "40,112,248" },
-        ];
-        for (const b of blobs) {
-          const gx = b.x * w;
-          const gy = b.y * h;
-          const gr = Math.max(w, h) * b.r;
-          const g = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr);
-          g.addColorStop(0, "rgba(" + b.c + ",0.22)");
-          g.addColorStop(0.45, "rgba(" + b.c + ",0.08)");
-          g.addColorStop(1, "rgba(" + b.c + ",0)");
-          ctx.fillStyle = g;
-          ctx.fillRect(0, 0, w, h);
-        }
-        if (!reduce) raf = requestAnimationFrame(frame);
-      }
-      resize();
-      frame(0);
-      window.addEventListener("resize", () => {
-        resize();
-        if (reduce) frame(0);
-      });
-      if (!reduce) raf = requestAnimationFrame(frame);
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden) cancelAnimationFrame(raf);
-        else if (!reduce) raf = requestAnimationFrame(frame);
-      });
-    })();
-  </script>`;
+  </div>`;
 }
 
 export function stackFragment(details: {
