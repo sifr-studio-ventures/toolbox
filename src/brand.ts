@@ -2,6 +2,7 @@ import {
   appleTouchIconPng,
   favicon16Png,
   faviconPng,
+  heroMeadowJpg,
   openToolboxMarkPng,
 } from "./brand-assets";
 
@@ -10,20 +11,34 @@ const pngHeaders = {
   "Cache-Control": "public, max-age=86400, immutable",
 } as const;
 
-function pngResponse(b64: string): Response {
+const jpegHeaders = {
+  "Content-Type": "image/jpeg",
+  "Cache-Control": "public, max-age=86400, immutable",
+} as const;
+
+function bytesFromB64(b64: string): Uint8Array {
   const binary = atob(b64);
   const bytes = new Uint8Array(binary.length);
   for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
-  return new Response(bytes, { headers: pngHeaders });
+  return bytes;
 }
 
-/** Brand PNG routes — compressed mark + favicons. */
+function pngResponse(b64: string): Response {
+  return new Response(bytesFromB64(b64), { headers: pngHeaders });
+}
+
+function jpegResponse(b64: string): Response {
+  return new Response(bytesFromB64(b64), { headers: jpegHeaders });
+}
+
+/** Brand + landing image routes — compressed mark, favicons, hero meadow. */
 export const brandAssetRoutes: Record<string, () => Response> = {
   "/open-toolbox-mark.png": () => pngResponse(openToolboxMarkPng),
   "/favicon.png": () => pngResponse(faviconPng),
   "/favicon-16.png": () => pngResponse(favicon16Png),
   "/favicon-32.png": () => pngResponse(faviconPng),
   "/apple-touch-icon.png": () => pngResponse(appleTouchIconPng),
+  "/hero-meadow.jpg": () => jpegResponse(heroMeadowJpg),
 };
 
 /** Favicon + apple-touch link tags for layout head. */
