@@ -1,7 +1,10 @@
 import schemaSql from "../migrations/0001_schema.sql?raw";
-import { ensureSeed } from "./seed";
+import orgsSql from "../migrations/0002_orgs.sql?raw";
 
-const MIGRATIONS = [{ name: "0001_schema.sql", sql: schemaSql }];
+const MIGRATIONS = [
+  { name: "0001_schema.sql", sql: schemaSql },
+  { name: "0002_orgs.sql", sql: orgsSql },
+];
 
 let ready: Promise<void> | null = null;
 
@@ -46,6 +49,4 @@ async function setup(db: D1Database): Promise<void> {
     await runSql(db, migration.sql);
     await db.prepare("INSERT OR IGNORE INTO d1_migrations (name) VALUES (?)").bind(migration.name).run();
   }
-
-  await ensureSeed(db);
 }

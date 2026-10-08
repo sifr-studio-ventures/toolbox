@@ -1,4 +1,4 @@
-import type { User } from "./factory/db";
+import type { User } from "./db";
 
 export type EmailBinding = {
   send: (message: unknown) => Promise<unknown>;
