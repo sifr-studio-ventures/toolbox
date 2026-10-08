@@ -241,8 +241,8 @@ export function homePage(): string {
                 description: "Sign in and explore the toolkit as it ships.",
                 features: [
                   "Magic-link sign in",
+                  "Organizations & dashboard",
                   "Public toolkit updates",
-                  "Share links & webhooks",
                   "Design system on the edge",
                 ],
                 ctaLabel: "Sign in",
@@ -254,7 +254,7 @@ export function homePage(): string {
                 note: "per seat / month · coming soon",
                 description: "Private boards and the full toolkit for solo builders shipping fast.",
                 features: [
-                  "Private workspaces & boards",
+                  "Private organizations",
                   "Docs, canvas, forms, surveys",
                   "Analytics + bug reporting",
                   "Popups for on-site prompts",
@@ -273,7 +273,7 @@ export function homePage(): string {
                 features: [
                   "Everything in Pro",
                   "Shared CRM + support chat",
-                  "Roles & shared boards",
+                  "Roles & shared orgs",
                   "Priority toolkit updates",
                 ],
                 ctaLabel: "Sign in",
