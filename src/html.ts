@@ -15,7 +15,7 @@ export function readCookie(header: string, name: string): string | null {
 }
 
 export function safeNext(value: string | null | undefined): string {
-  if (!value) return "/factory";
-  if (!value.startsWith("/") || value.startsWith("//") || value.includes("\\")) return "/factory";
+  if (!value) return "/dashboard";
+  if (!value.startsWith("/") || value.startsWith("//") || value.includes("\\")) return "/dashboard";
   return value;
 }

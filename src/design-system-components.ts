@@ -28,8 +28,8 @@ export function componentsSection(): string {
           <input class="input w-full" type="email" placeholder="you@example.com" />
         </label>
         <label class="flex flex-col gap-2 text-sm">
-          Board name
-          <input class="input input-sm w-full" placeholder="Building opentoolbox" />
+          Organization name
+          <input class="input input-sm w-full" placeholder="Acme product" />
         </label>
         <label class="flex flex-col gap-2 text-sm">
           Notes
@@ -37,7 +37,7 @@ export function componentsSection(): string {
         </label>
         <label class="flex items-start gap-3 text-sm">
           <input type="checkbox" class="checkbox mt-1" checked />
-          <span>Checklist item on a Value Factory card</span>
+          <span>Remember this organization</span>
         </label>
       </div>`,
     ],
@@ -138,7 +138,7 @@ export function componentsSection(): string {
               </button>
             </header>
             <div class="ot-modal-body flex flex-col gap-4">
-              <p class="text-sm text-base-content/70">Same shell Value Factory uses when you press Edit.</p>
+              <p class="text-sm text-base-content/70">Square modal bands with a Coinbase-style field focus ring.</p>
               <label class="flex flex-col gap-2 text-sm">
                 Title
                 <input class="input w-full" value="Ship the design system page" />
@@ -167,7 +167,7 @@ export function componentsSection(): string {
     ],
     [
       "Tables",
-      "List surfaces for webhooks, owners, scores.",
+      "List surfaces for members, owners, and status.",
       `<div class="overflow-x-auto rounded-box border border-base-300">
         <table class="table">
           <thead>
@@ -213,7 +213,7 @@ export function componentsSection(): string {
             ${brandLockup({ href: null, size: "nav" })}
           </div>
           <nav class="navbar-center hidden gap-8 text-sm lg:flex">
-            <a class="link link-hover text-base-content" href="/factory">Value Factory</a>
+            <a class="link link-hover text-base-content" href="/dashboard">Dashboard</a>
             <a class="link link-hover text-base-content" href="/design-system">Design system</a>
           </nav>
           <div class="navbar-end">
@@ -221,7 +221,7 @@ export function componentsSection(): string {
           </div>
         </header>
         <ul class="menu w-full text-sm lg:hidden">
-          <li><a href="/factory">Value Factory</a></li>
+          <li><a href="/dashboard">Dashboard</a></li>
           <li><a href="/design-system">Design system</a></li>
           <li><a href="/">Home</a></li>
         </ul>
@@ -247,7 +247,7 @@ export function componentsSection(): string {
   return section(
     "components",
     "Components",
-    "Live DaisyUI pieces already used on the bench and Value Factory, restyled with Base/Coinbase + Square field and modal patterns.",
+    "Live DaisyUI pieces already used on the marketing site and dashboard, restyled with Base/Coinbase + Square field and modal patterns.",
     body,
   );
 }

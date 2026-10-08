@@ -1,7 +1,7 @@
 import type { Context } from "hono";
 import { sha256Hex, randomHex } from "./crypto";
 import { sendMagicLink, showMagicLinkOnScreen } from "./email";
-import type { User } from "./factory/db";
+import type { User } from "./db";
 import { readCookie, safeNext } from "./html";
 import { requestHostname } from "./canonical";
 import type { AppBindings, AppContext } from "./types";
