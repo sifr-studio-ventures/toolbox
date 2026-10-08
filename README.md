@@ -1,6 +1,6 @@
 # Open Toolbox
 
-Open Toolbox is the product-team toolkit on Cloudflare Workers. Hono returns HTML. Tailwind and DaisyUI style the marketing home (photo hero, feature bento, contained pricing band) with the `toolbox` theme — Active `#2870F8`, text `#000000`, white `#FFFFFF`, warning `#F8D030`, error `#F04048`, Poppins, and the soft 3D PNG logo mark. The public design system is at `/design-system`. Kanban app routes still live under `/factory` (not marketed on the home page). `GET /stack` still returns an HTMX fragment for edge demos.
+Open Toolbox is the product-team toolkit on Cloudflare Workers. Hono returns HTML. Tailwind and DaisyUI style the marketing home (feature bento, contained pricing band) with the `toolbox` theme — Active `#2870F8`, text `#000000`, white `#FFFFFF`, warning `#F8D030`, error `#F04048`, Poppins, and the soft 3D PNG logo mark. The public design system is at `/design-system`. After magic-link sign-in, users land on `/dashboard` with organizations and tool stubs (Docs, Canvas, Kanban). `GET /stack` still returns an HTMX fragment for edge demos.
 
 ## Run locally
 
@@ -20,7 +20,9 @@ npm run build
 
 Production uses the D1 database `toolbox` (`de4e9e60-7edd-43c8-9b73-80ab57e5d3c8`). Previews use `toolbox-preview` (`75a5b54d-7100-4d96-9e55-dc69facf917d`). Both are bound as `DB` in `wrangler.jsonc`. SQL files live in `migrations/`.
 
-The Worker applies any migration that is not already recorded in `d1_migrations`, then seeds the public board "Building opentoolbox" if that board is not there yet. That means a Workers Builds deploy picks up schema changes on the first request. CI also applies migrations before `wrangler deploy` and `wrangler preview`.
+The Worker applies any migration that is not already recorded in `d1_migrations` on the first request. That means a Workers Builds deploy picks up schema changes without a separate dashboard step. CI also applies migrations before `wrangler deploy` and `wrangler preview`.
+
+Schema includes `users`, `sessions`, `magic_links`, `orgs`, and `org_members`. Legacy Value Factory board tables from `0001_schema.sql` remain in the database but are unused (routes removed; no seed board).
 
 Local only:
 
@@ -37,9 +39,13 @@ npm run db:migrate:preview
 
 ## Magic links
 
-Sign-in is email only. There is no password. Local dev (`localhost` or `127.0.0.1`) and preview (`ENVIRONMENT=preview`) show the sign-in link on the page, so you can sign in when email is not configured. Production sends through the Cloudflare Email binding as `Open Toolbox <noreply@opentoolbox.io>` when that send succeeds. If `RESEND_API_KEY` is set as a Worker secret, Resend is the fallback. Production without a working sender tells you that no email was sent. It does not pretend the message went out, and it does not print the link.
+Sign-in is email only. There is no password. A successful verify redirects to `/dashboard` (or a safe `next` path). Local dev (`localhost` or `127.0.0.1`) and preview (`ENVIRONMENT=preview`) show the sign-in link on the page, so you can sign in when email is not configured. Production sends through the Cloudflare Email binding as `Open Toolbox <noreply@opentoolbox.io>` when that send succeeds. If `RESEND_API_KEY` is set as a Worker secret, Resend is the fallback. Production without a working sender tells you that no email was sent. It does not pretend the message went out, and it does not print the link.
 
 Email auth for `opentoolbox.io` lives in Cloudflare DNS (SPF, DKIM, DMARC). Optional Worker secret name only: `RESEND_API_KEY`.
+
+## Dashboard
+
+Signed-in users get a left sidebar with organizations (list, switch, create), tools (Docs / Canvas / Kanban — Coming soon stubs), and a profile block (email + Sign out). The first sign-in creates a personal organization when none exist. Signed-out visits to `/dashboard` redirect to sign-in.
 
 ## Deploy and preview
 
@@ -61,3 +67,4 @@ When the GitHub repository is connected to Workers Builds, production builds on 
 | npm package `name` | `open-toolbox` | Safe; D1 / Wrangler scripts still use database id `toolbox` |
 | DaisyUI theme | `toolbox` | CSS theme key |
 | D1 databases | `toolbox` / `toolbox-preview` | Bound as `DB` |
+| Canonical host | `opentoolbox.io` | SEO 301 from alias hosts; skipped when `HX-Request` |
