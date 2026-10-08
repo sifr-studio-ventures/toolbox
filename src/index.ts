@@ -1,8 +1,9 @@
 import { Hono } from "hono";
 import { userFromCookie } from "./auth";
+import { registerAuth } from "./auth-routes";
 import { brandAssetRoutes } from "./brand";
 import { canonicalHost } from "./canonical";
-import { registerFactory } from "./factory/routes";
+import { registerDashboard } from "./dashboard";
 import { ensureReady } from "./migrate";
 import { designSystemPage } from "./design-system";
 import { homePage, layout, stackFragment } from "./page";
@@ -82,7 +83,8 @@ app.get("/stack", (c) => {
   return c.html(fragment);
 });
 
-registerFactory(app, css, layout);
+registerAuth(app, css, layout);
+registerDashboard(app, css, layout);
 
 app.notFound(async (c) => {
   const assets = c.env.ASSETS;
@@ -97,8 +99,8 @@ app.notFound(async (c) => {
       `<main class="mx-auto max-w-xl page-shell py-16">
         <div class="card bg-base-100 shadow-sm">
           <div class="card-body">
-            <h1 class="card-title text-2xl">That path is not on the bench</h1>
-            <p>Try the home page, or sign in to continue.</p>
+            <h1 class="card-title text-2xl">Page not found</h1>
+            <p>Try the home page, or sign in to open your dashboard.</p>
             <div class="card-actions gap-3">
               <a class="btn btn-primary" href="/">Back home</a>
               <a class="btn btn-ghost" href="/signin">Sign in</a>
