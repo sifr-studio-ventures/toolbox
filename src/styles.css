@@ -748,9 +748,7 @@ a.link {
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
 }
 
-/* HTMX-swapped Value Factory card form fills the modal shell */
-.modal-box.ot-modal > #card-dialog-body,
-.modal-box.ot-modal > #card-dialog-body > form {
+.modal-box.ot-modal > form {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
@@ -821,4 +819,124 @@ a.link {
 .ot-modal-footer .modal-action {
   margin: 0;
   display: contents;
+}
+
+/* Dashboard */
+.ot-dash-sidebar {
+  background: var(--white);
+}
+
+.ot-dash-section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-base-content) 55%, transparent);
+}
+
+.ot-dash-org,
+.ot-dash-tool {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-base-content);
+  background: transparent;
+  border: 1.5px solid transparent;
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+.ot-dash-org:hover,
+.ot-dash-tool:hover {
+  background: color-mix(in srgb, var(--color-base-200) 80%, transparent);
+}
+
+.ot-dash-org--active,
+.ot-dash-tool--active {
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 8%, white);
+}
+
+.ot-dash-pane {
+  width: 100%;
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+@media (min-width: 1024px) {
+  .ot-dash-pane {
+    padding: 2.5rem 2.5rem 4rem;
+  }
+}
+
+.ot-dash-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-base-content) 55%, transparent);
+}
+
+.ot-dash-title {
+  margin-top: 0.75rem;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.ot-dash-support {
+  margin-top: 0.75rem;
+  max-width: 36rem;
+  color: color-mix(in srgb, var(--color-base-content) 75%, transparent);
+}
+
+.ot-dash-pick-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .ot-dash-pick-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ot-dash-pick {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  transition: border-color 120ms ease;
+}
+
+.ot-dash-pick:hover,
+.ot-dash-pick:focus-visible {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.ot-dash-pick-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.ot-dash-pick-desc {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--color-base-content) 70%, transparent);
+}
+
+.ot-dash-soon {
+  max-width: 28rem;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
 }
